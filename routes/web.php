@@ -301,7 +301,7 @@ Route::prefix('parking_price')->name('parking_price.')->group(function () {
 Route::prefix('purchase')->name('purchase.')->group(function () {
     Route::get('/list', 'PurchaseController@index')->name('index');
     Route::any('/clientinfo', 'PurchaseController@clientinfo')->name('clientinfo');
-    Route::any('/getServices', 'PurchaseController@getServices')->name('getServices');
+    Route::any('/getTests', 'PurchaseController@getTests')->name('getTests');
     Route::post('/add-item', 'PurchaseController@add_item')->name('item');
     Route::post('/add-expiry', 'PurchaseController@add_expiry')->name('expiry');
     Route::post('/add-batch', 'PurchaseController@add_batch')->name('batch');

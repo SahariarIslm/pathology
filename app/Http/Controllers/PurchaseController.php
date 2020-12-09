@@ -36,7 +36,11 @@ class PurchaseController extends Controller
                 ->where('shop', Auth::user()->id)
                 ->where('status', 1)
                 ->get();
-        return view('Admin.Purchase.purchase', compact('sl','patient','reference'));
+        $tests = Product::orderBy('name','ASC')
+                ->where('shop', Auth::user()->id)
+                ->where('status', 1)
+                ->get();
+        return view('Admin.Purchase.purchase', compact('sl','patient','reference','tests'));
     }
 
     public function clientinfo(){
@@ -49,17 +53,12 @@ class PurchaseController extends Controller
             ]);
     }
 
-    public function getServices(){
-        $medicines = Product::where('status',1)
-                        ->where('manufacturer',request()->manufacturer)
+    public function getTests(){
+        $test = Product::where('status',1)
+                        ->where('id',request()->test_id)
                         ->get();
-        $medicines_html = (string)view('Admin.components.medicines_html', 
-                            [
-                                'medicines' => $medicines,
-                            ]
-                        );
         return response()->json([
-            'medicines_html'=> $medicines_html
+            'test'=> $test
         ]);
     }
 
@@ -67,99 +66,6 @@ class PurchaseController extends Controller
     {
         $data = Supplier::where('id', $request->id)->pluck('mobile');
         return response()->json($data);
-    }
-
-    public function add_item(Request $request)
-    {
-        $today = date('Y-m-d');
-        $products = Product::find($request->id);
-        // \Cart::session(Auth::user()->id)->add(array(
-        \Cart::add(array(
-            'id'         => $products->id, 
-            'name'       => $products->name,
-            'price'      => '',
-            'quantity'   => 1,
-            'attributes' => array(
-                'minimum'       => $products->stock,
-                'unit'          => $products->unit,
-                'code'          => $products->barcode,
-                'price'         => $products->price,
-                'expiry_date'   => null,
-                'batch_no'      => null,
-              )
-        ));
-        $msg = "Product Added to Cart Successfully ....";
-        // Session::put('msg',$msg);
-        $request->session()->flash('status', $msg);
-    }
-
-    public function add_expiry(Request $request)
-    {
-        $products = \Cart::get($request->id);
-        \Cart::update($request->id, array(
-            'attributes' => array(
-                'minimum'       => $products->attributes->minimum,
-                'unit'          => $products->attributes->unit,
-                'code'          => $products->attributes->code,
-                'price'         => $products->attributes->price,
-                'batch_no'      => $products->attributes->batch_no,
-                'expiry_date'   => $request->expiry,
-            ),
-        ));
-        $msg = "Expiry Date Updated Successfully ....";
-        $request->session()->flash('status', $msg);
-    }
-
-    public function add_batch(Request $request)
-    {
-        // Cart::session($userId)->get($itemId)
-        $products = \Cart::get($request->id);
-        \Cart::update($request->id, array(
-            'attributes' => array(
-                'minimum'       => $products->attributes->minimum,
-                'unit'          => $products->attributes->unit,
-                'code'          => $products->attributes->code,
-                'price'         => $products->attributes->price,
-                'expiry_date'   => $products->attributes->expiry_date,
-                'batch_no'      => $request->batch,
-            ),
-        ));
-        $msg = "Batch No Updated Successfully ....";
-        $request->session()->flash('status', $msg);
-    }
-
-    public function add_qty(Request $request)
-    {
-        \Cart::update($request->id, array(
-            // 'quantity' => $request->qty
-            'quantity' => array(
-                'relative' => false,
-                'value' => $request->qty
-            ),
-        ));
-        $msg = "Quantity Updated Successfully ....";
-        $request->session()->flash('status', $msg);
-    }
-
-    public function add_price(Request $request)
-    {
-        \Cart::update($request->id, array(
-            'price' => $request->price
-        ));
-        $msg = "Price Updated Successfully ....";
-        $request->session()->flash('message', $msg);
-    }
-
-    public function remove(Request $request)
-    {
-        \Cart::remove($request->id);
-        return redirect()->back()->with('warning','Product Removed from Cart...');
-    }
-
-    public function clean()
-    {
-        \Cart::clear();
-        return redirect()->back()->with('danger','All Products Cleared from Cart...');
     }
 
     public function item_save(Request $request)

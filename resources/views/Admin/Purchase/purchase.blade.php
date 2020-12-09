@@ -1,6 +1,6 @@
 @extends('Master.main')
 @section('title')
-    Sale
+    Pathology Bill
 @endsection
 @section('content')
 
@@ -15,7 +15,7 @@
                                 Pathology Bill &nbsp;
                                 <?php
                                     $s = $sl + 1 ;
-                                    $p = date('Y') . $s;
+                                    $p = date('Ym') . $s;
                                     $bata = Auth::user()->id . $p;
                                 ?>
                                 <small> ( Invoice No. : <span style="color: blue;"> {{ $bata }} </span>)</small>
@@ -147,8 +147,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-3">
-                            <label>Patient List : </label>
+                        <div class="col-lg-2">
+                            <label>Patient: </label>
                             <select type="text" data-live-search="true" id="patient" title="Select Patient ....."
                                 class="selectpicker form-control patient" data-style="btn-info">
                                 @foreach($patient as $patient)
@@ -160,11 +160,22 @@
                         </div>
                         <form action="{{ route('sale.submit') }}" method="POST"> 
                             @csrf
-                            <div class="col-lg-3">
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <label>Gender: </label>
+                                    <select class="form-control custom-select-value gender" id="gender" name="gender" required>
+                                        <option value="">Select Gender</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
                                 <label>Mobile No. :</label>
                                 <input class="form-control mobile" id="mobile" name="mobile" readonly/>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-2">
                                 <div class="form-group">
                                     <label>Reference: </label>
                                     <select class="form-control reference_id" id="reference_id" name="reference_id" required>
@@ -177,7 +188,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-2">
                                 <div class="form-group">
                                     <label>Date :</label>
                                     <input class="form-control date" type="date" name="date"
@@ -189,10 +200,10 @@
                                 <table class="table table-bordered tbl order-list">
                                     <thead>
                                         <tr>
-                                            <th style="text-align: center;">Name</th>
+                                            <th style="text-align: center;width: 250px;">Name</th>
                                             <th style="text-align: center;">Code</th>
                                             <th style="text-align: center;">Qty</th>
-                                            <th style="text-align: center;">Cost</th>
+                                            <th style="text-align: center;">MRP</th>
                                             <th style="text-align: center;">Total</th>
                                             <th style="text-align: center;">Action</th>
                                         </tr>
@@ -319,94 +330,103 @@
                         patient:patient,
                     },
                 success: function(response) {
-                    console.log(response.clientInfo);
+
                     var phone = $("#mobile").val('');
                     var reference_id = $("#reference_id").val('');
+                    var gender = $("#gender").val('');
                     phone.val(response.clientInfo.mobile);
                     reference_id.val(response.clientInfo.reference_id);
+                    gender.val(response.clientInfo.gender);
                 },
                 error: function(response) {
                 }
             }); 
         });
 
-        
         var counter = 0;
         $("#addrow").on("click", function () {
             counter++;
-        var newRow =    '<tr>'+
+            var newRow= '<tr id="test_row_'+counter+'" data-id="'+counter+'">'+
                             '<td>'+
-                                '<select class="form-control SUP medicine" id="medicine_id" name="medicine_id[]" required>'+
-                                    '<option value="">Select Medicine</option>'+
+                                '<select class="form-control SUP test_id" id="test_id" name="test_id[]" required>'+
+                                    '<option value="">Select Test</option>'+
+                                    @foreach($tests as $test)
+                                    '<option value="{{$test->id}}">{{$test->name}}</option>'+
+                                    @endforeach
                                 '</select>'+
                             '</td>'+
                               '<td>'+
                                 '<input class="code text-center form-control" id="code" name="code[]" type="text" value=""style="width: ; border: hidden;" readonly>'+
                             '</td>'+
                             '<td>'+
-                                '<input class="iTEmQty text-center form-control" id="quantity" name="qty[]" type="number" step=".01" title="" value="" min="0" style="width: ; bor der: hidden;">'+
+                                '<input class="qty text-center form-control" min="0" id="qty" name="qty[]" type="number" step=".0001" title="" value="" min="0" style="width: ; bor der: hidden;">'+
                             '</td>'+
                             '<td>'+
-                                '<input class="price text-center form-control" id="price" type="number" name="cost[]" step=".01" title="" value="" min="0" style="width: ; bor der: hidden;">'+
+                                '<input class="mrp text-center form-control" id="mrp" min="0" type="number" name="mrp[]" step=".0001" title="" value="" min="0" style="width: ; bor der: hidden;">'+
                             '</td>'+
                             '<td>'+
-                                '<input class="item_total text-center form-control" id="subprice" name="total[]" type="number" step=".01" title="" value="" min="0" style="width: ; bor der: hidden;" readonly>'+
+                                '<input class="total text-center form-control" min="0" id="total" name="total[]" type="number" step=".00001" title="" value="" min="0" style="width: ; bor der: hidden;" readonly>'+
                             '</td>'+
                             '<td>'+
                                 '<a class="btn btn-danger btn-xs ibtnDel"> <i class="fa fa-remove"></i></a>'+
                             '</td>'+
                         '</tr>';
             $("table.order-list").append(newRow);
+
+            $('#test_row_'+counter).find('.test_id').on("change",function(){
+                $.ajaxSetup({
+                  headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+                });
+                var test_id = $('#test_row_'+counter).find('.test_id').val();
+                 $.ajax({
+                    type: "POST",
+                    url : "{{ route('purchase.getTests') }}",
+                    data : 
+                        {
+                            test_id:test_id,
+                        },
+                    success: function(response) {
+
+                        var code  = $('#test_row_'+counter).find('.code').val('');
+                        var mrp   = $('#test_row_'+counter).find('.mrp').val('');
+                        var total = $('#test_row_'+counter).find('.total').val('');
+                        var qty   = $('#test_row_'+counter).find('.qty').val('');
+
+                        code.val(response.test[0].code);
+                        mrp.val(response.test[0].mrp);
+                        qty.val(1);
+                        var totalPrice = parseFloat(qty.val()) * parseFloat(mrp.val());
+                        total.val(totalPrice);
+                        
+                        $('#test_row_'+counter).find('#qty').on("keyup",function(){
+                            var total = $('#test_row_'+counter).find('.total').val('');
+                            var totalPrice = parseFloat($('#test_row_'+counter).find('#qty').val()) * parseFloat($('#test_row_'+counter).find('#mrp').val());
+                            total.val(totalPrice);
+                        });
+
+                        $('#test_row_'+counter).find('#mrp').on("keyup",function(){
+                            var total = $('#test_row_'+counter).find('.total').val('');
+                            var totalPrice = parseFloat($('#test_row_'+counter).find('#qty').val()) * parseFloat($('#test_row_'+counter).find('#mrp').val());
+                            total.val(totalPrice);
+                        });
+
+                    },
+                    error: function(response) {
+                    }
+                });  
+            });
+
         });
+
+        
+
         $("table.order-list").on("click", ".ibtnDel", function (event) {
             $(this).closest("tr").remove();
             counter --;
         });
-          
-        
 
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-        $('#manufacturer').change(function(){
-            $.ajaxSetup({
-              headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-              }
-            });
-            var manufacturer = $('#manufacturer').val();
-             $.ajax({
-                type: "POST",
-                url : "{{ route('purchase.getServices') }}",
-                data : 
-                    {
-                        manufacturer:manufacturer,
-                    },
-                success: function(response) {
-                    // var medicine = $(".medicine").html('');
-                    var counter = 0;
-                    $("#addrow").on("click", function () {
-                        counter++;
-                        var newRow = $("<tr id='medicine_row_"+counter+"' data-id='"+counter+"'>");
-                        newRow.append(response.medicines_html);
-                        $("table.order-list").append(newRow);
-                    });
-                },
-                error: function(response) {
-                }
-            }); 
-        });
     });
     </script>
 
