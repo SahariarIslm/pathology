@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Admin\Customer;
+use App\Admin\PatientReference;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use App\Admin\VehicleCategory;
-use App\Admin\ParkingGroup;
 
 class CustomerController extends Controller
 {
@@ -22,7 +21,10 @@ class CustomerController extends Controller
         $data = Customer::orderBy('id', 'DESC')
             ->where('shop', Auth::user()->id)
             ->get();
-        return view('Admin.Customer.customer', compact('data'));
+        $references = PatientReference::orderBy('id', 'DESC')
+            ->where('shop', Auth::user()->id)
+            ->get();
+        return view('Admin.Customer.customer', compact('data','references'));
     }
 
     public function store(Request $request)
@@ -33,12 +35,13 @@ class CustomerController extends Controller
         $data->address          = $request->address;
         $data->age              = $request->age;
         $data->gender           = $request->gender;
+        $data->reference_id     = $request->reference_id;
         $data->mobile           = $request->mobile;
         $data->district         = $request->district;
         $data->status           = '1';
         $data->shop             = Auth::user()->id;
         $data->save();
-        return redirect()->back()->with('message','Client Added Successfully');
+        return redirect()->back()->with('message','Patient Added Successfully');
     }
 
     public function edit(Request $request)
@@ -49,24 +52,16 @@ class CustomerController extends Controller
 
     public function update(Request $request)
     {
-        $vehicleType = VehicleCategory::where('id',$request->vehicle_type_id)
-                        ->where('shop', Auth::user()->id)
-                        ->first();
-        $parkingGroup = ParkingGroup::where('id',$request->parking_group_id)
-                        ->where('shop', Auth::user()->id)
-                        ->first();
         Customer::where('id',$request->id)
             ->update([
                     'name'             => $request->name,
-                    'licence'          => $request->licence,
-                    'model_no'         => $request->model_no,
-                    'vehicle_type_id'  => $request->vehicle_type_id,
-                    'vehicle_type'     => $vehicleType->name,
-                    'parking_group_id' => $request->parking_group_id,
-                    'parking_group'    => $parkingGroup->name,
-                    'mobile'           => $request->mobile,
-                    'color'            => $request->color,
+                    'p_id'             => $request->p_id,
                     'address'          => $request->address,
+                    'age'              => $request->age,
+                    'gender'           => $request->gender,
+                    'reference_id'     => $request->reference_id,
+                    'mobile'           => $request->mobile,
+                    'district'         => $request->district,
                 ]);
         return redirect()->back()->with('message','Client Updated Successfully');
     }

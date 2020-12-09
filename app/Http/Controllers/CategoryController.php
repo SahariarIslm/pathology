@@ -57,10 +57,9 @@ class CategoryController extends Controller
         return redirect()->back()->with('status','Category Status Changed Successfully');
     }
 
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        $data = Category::find($request->id);
-        $data->delete();
+        $data = Category::find($id)->delete();
         return redirect()->back()->with('danger','Category Deleted Successfully');
     }
     

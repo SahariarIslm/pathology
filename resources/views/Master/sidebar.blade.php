@@ -56,7 +56,7 @@
                             <li>
                                 <a title="Product" href="{{ route('product.index') }}">
                                     <i class="fa fa-cubes sub-icon-mg" aria-hidden="true"></i> 
-                                    <span class="mini-sub-pro">Services</span>
+                                    <span class="mini-sub-pro">Tests</span>
                                 </a>
                             </li>
                             <li>
@@ -160,37 +160,37 @@
                     <li class="">
                         <a class="has-arrow" href="#">
                             <i class="fa big-icon fa-cart-plus icon-wrap"></i>
-                            <span class="mini-click-non">Purchase</span>
+                            <span class="mini-click-non">Pathology Bill</span>
                         </a>
                         <ul class="submenu-angle" aria-expanded="true">
                             <li>
-                                <a title="Purchase" href="{{ route('purchase.index') }}">
-                                    <i class="fa fa-cart-plus sub-icon-mg" aria-hidden="true"></i> 
-                                    <span class="mini-sub-pro">Purchase</span>
+                                <a title="Bill" href="{{ route('purchase.index') }}">
+                                    <i class="fa fa-cart-plus sub-icon-mg" aria-hidden="true"></i>
+                                    <span class="mini-sub-pro">Bill</span>
                                 </a>
                             </li>
-                             <li>
-                                <a title="Purchase Edit" href="{{ route('purchase.edit.index') }}">
-                                    <i class="fa fa-cart-arrow-down sub-icon-mg" aria-hidden="true"></i> 
-                                    <span class="mini-sub-pro">Purchase Edit</span>
+                            {{-- <li>
+                                <a title="Bill Edit" href="{{ route('purchase.edit.index') }}">
+                                    <i class="fa fa-cart-arrow-down sub-icon-mg" aria-hidden="true"></i>
+                                    <span class="mini-sub-pro">Bill Edit</span>
                                 </a>
                             </li>
                             <li>
-                                <a title="Purchase Edit" href="{{ route('purchase.edit.list') }}">
-                                    <i class="fa fa-cart-arrow-down sub-icon-mg" aria-hidden="true"></i> 
-                                    <span class="mini-sub-pro">Purchase Edit</span>
+                                <a title="Bill Edit" href="{{ route('purchase.edit.list') }}">
+                                    <i class="fa fa-cart-arrow-down sub-icon-mg" aria-hidden="true"></i>
+                                    <span class="mini-sub-pro">Bill Edit</span>
                                 </a>
                             </li> 
                             <li>
-                                <a title="Purchase Cancel" href="{{ route('purchase.cancel.index') }}">
-                                    <i class="fa fa-cart-arrow-down sub-icon-mg" aria-hidden="true"></i> 
-                                    <span class="mini-sub-pro">Purchase Cancel</span>
+                                <a title="Bill Cancel" href="{{ route('purchase.cancel.index') }}">
+                                    <i class="fa fa-cart-arrow-down sub-icon-mg" aria-hidden="true"></i>
+                                    <span class="mini-sub-pro">Bill Cancel</span>
                                 </a>
-                            </li>
+                            </li> --}}
                             @can('adminE')
                             <li>
                                 <a title="Generate Barcode" href="{{ route('barcode.index') }}">
-                                    <i class="fa fa-barcode sub-icon-mg" aria-hidden="true"></i> 
+                                    <i class="fa fa-barcode sub-icon-mg" aria-hidden="true"></i>
                                     <span class="mini-sub-pro">Generate Barcode</span>
                                 </a>
                             </li>

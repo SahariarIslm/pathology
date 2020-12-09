@@ -158,10 +158,7 @@
                                                 <i class="fa fa-edit"></i>
                                             </button>
                                             @can('admin')
-                                            {{--  <button class="btn btn-danger deletE btn-xs"
-                                                data-id="{{ $data->id }}">
-                                                <i class="fa fa-trash-o"></i>
-                                            </button>  --}}
+                                            <a class="btn btn-danger deletE btn-xs" href="{{route('category.destroy',$data->id)}}"><i class="fa fa-trash-o"></i></a> 
                                             @endcan
                                             @if($data->status == "1")
                                                 <a href="{{route('category.status',['id'=>$data->id])}}" 
@@ -191,15 +188,9 @@
     </div>
 </div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
 <script>
     $(document).ready(function () {
@@ -235,21 +226,6 @@
                 }
             });
         });
-    });
-    $('.deletE').on('click', function () {
-        var id = $(this).data("id");
-        $.ajax(
-            {
-                url: "{{ route('category.destroy') }}",
-                type: 'GET',
-                data: {
-                    "id": id,
-                },
-                success: function (){
-                    console.log("Data Deleted Successfully");
-                    location.reload();
-                }
-            });
     });
 </script>
 

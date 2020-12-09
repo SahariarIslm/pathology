@@ -155,7 +155,7 @@ Route::prefix('customer')->name('customer.')->group(function () {
     Route::get('/list', 'CustomerController@index')->name('index');
     Route::post('/add', 'CustomerController@store')->name('store');
     Route::get('/edit', 'CustomerController@edit')->name('edit');
-    Route::post('/update', 'CustomerController@update')->name('update');
+    Route::any('/update', 'CustomerController@update')->name('update');
     Route::get('/status', 'CustomerController@status')->name('status');
     Route::any('/delete/{id}', 'CustomerController@destroy')->name('destroy');
     Route::get('/details', 'SaleController@details')->name('details');
@@ -179,7 +179,7 @@ Route::prefix('category')->name('category.')->group(function () {
     Route::get('/edit', 'CategoryController@edit')->name('edit');
     Route::post('/update', 'CategoryController@update')->name('update');
     Route::get('/status', 'CategoryController@status')->name('status');
-    Route::get('/delete', 'CategoryController@destroy')->name('destroy');
+    Route::any('/delete/{id}', 'CategoryController@destroy')->name('destroy');
 });
 
 //-------------------------- Medicine Type ------------------------
@@ -189,7 +189,7 @@ Route::prefix('medicine_type')->name('medicine_type.')->group(function () {
     Route::get('/edit', 'MedicineTypesController@edit')->name('edit');
     Route::post('/update', 'MedicineTypesController@update')->name('update');
     Route::get('/status', 'MedicineTypesController@status')->name('status');
-    Route::delete('/delete/{id}', 'MedicineTypesController@destroy')->name('destroy');
+    
 });
 
 //-------------------------- Medicine Shelf ------------------------
@@ -300,7 +300,8 @@ Route::prefix('parking_price')->name('parking_price.')->group(function () {
 //-------------------------- Purchase ------------------------
 Route::prefix('purchase')->name('purchase.')->group(function () {
     Route::get('/list', 'PurchaseController@index')->name('index');
-    Route::any('/getMedicine', 'PurchaseController@getMedicine')->name('getMedicine');
+    Route::any('/clientinfo', 'PurchaseController@clientinfo')->name('clientinfo');
+    Route::any('/getServices', 'PurchaseController@getServices')->name('getServices');
     Route::post('/add-item', 'PurchaseController@add_item')->name('item');
     Route::post('/add-expiry', 'PurchaseController@add_expiry')->name('expiry');
     Route::post('/add-batch', 'PurchaseController@add_batch')->name('batch');
@@ -496,5 +497,5 @@ Route::prefix('patient-reference')->name('patient_reference.')->group(function (
     Route::get('/edit', 'PatientReferenceController@edit')->name('edit');
     Route::post('/update', 'PatientReferenceController@update')->name('update');
     Route::get('/status', 'PatientReferenceController@status')->name('status');
-    Route::get('/delete', 'PatientReferenceController@destroy')->name('destroy');
+    Route::get('/delete/{id}', 'PatientReferenceController@destroy')->name('destroy');
 });

@@ -20,6 +20,7 @@ class CreateCustomersTable extends Migration
             $table->string('address')->nullable();
             $table->integer('age')->nullable();
             $table->string('gender')->nullable();
+            $table->bigInteger('reference_id')->nullable();
             $table->string('mobile')->nullable();
             $table->string('district')->nullable();
             $table->tinyInteger('status')->default(1);

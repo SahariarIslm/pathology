@@ -1,17 +1,10 @@
-<td><select class="form-control SUP medicine" id="medicine_id" name="medicine_id[]" required>
+<td>
+	<select class="form-control SUP medicine" id="medicine_id" name="medicine_id[]" required>
 		<option value="">Select Medicine</option>
-		@foreach($medicines as $medicine)
-		<option value="{{ $medicine->id }}">
-		    {{ $medicine->name }}
-		</option>
-		@endforeach
 	</select>
 </td>
 <td>
 	<input class="code text-center form-control" id="code" name="code[]" type="text" value=""style="width: ; border: hidden;" readonly>
-</td>
-<td>
-	<input class="Expiry text-center form-control"type="date" name="expiry_date[]" value=""style="width: ; border: hidden;">
 </td>
 <td>
 	<input class="Batch text-center form-control" type="text" name="batch_no[]" value=""style="width: ; border: hidden;">

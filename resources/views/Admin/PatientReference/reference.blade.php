@@ -44,7 +44,7 @@
                     <div id="PrimaryModalalert" class="modal modal-adminpro-general default-popup-PrimaryModal fade" role="dialog">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <form action="{{ route('category.store') }}" method="POST">
+                                <form action="{{ route('patient_reference.store') }}" method="POST">
                                     @csrf
                                     <div class="modal-close-area modal-close-df">
                                         <a class="close" data-dismiss="modal" href="#">
@@ -74,7 +74,7 @@
                                                     </label>
                                                 </div>
                                                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                                    <input type="text" name="name" class="form-control" required/>
+                                                    <input type="text" name="address" class="form-control" required/>
                                                 </div>
                                             </div>
                                         </div>
@@ -86,7 +86,7 @@
                                                     </label>
                                                 </div>
                                                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                                    <input type="text" name="name" class="form-control" required/>
+                                                    <input type="text" name="phone" class="form-control" required/>
                                                 </div>
                                             </div>
                                         </div>
@@ -98,7 +98,7 @@
                                                     </label>
                                                 </div>
                                                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                                    <input type="text" name="name" class="form-control" required/>
+                                                    <input type="text" name="discount" class="form-control" required/>
                                                 </div>
                                             </div>
                                         </div>
@@ -110,7 +110,7 @@
                                                     </label>
                                                 </div>
                                                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                                    <input type="text" name="name" class="form-control" required/>
+                                                    <input type="text" name="details" class="form-control" required/>
                                                 </div>
                                             </div>
                                         </div>
@@ -134,7 +134,7 @@
                                         <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
                                     </div>
                                 </div>
-                                <form action="{{ route('category.store') }}" method="POST">
+                                <form action="{{ route('patient_reference.update') }}" method="POST">
                                     @csrf
                                     
                                     <div class="modal-body">
@@ -146,7 +146,8 @@
                                                     </label>
                                                 </div>
                                                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                                    <input type="text" name="name" class="form-control" required/>
+                                                    <input type="text" name="name" class="name form-control" required/>
+                                                    <input name="id" class="id" type="hidden"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -158,7 +159,7 @@
                                                     </label>
                                                 </div>
                                                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                                    <input type="text" name="name" class="form-control" required/>
+                                                    <input type="text" name="address" class="address form-control" required/>
                                                 </div>
                                             </div>
                                         </div>
@@ -170,7 +171,7 @@
                                                     </label>
                                                 </div>
                                                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                                    <input type="text" name="name" class="form-control" required/>
+                                                    <input type="text" name="phone" class="phone form-control" required/>
                                                 </div>
                                             </div>
                                         </div>
@@ -182,7 +183,7 @@
                                                     </label>
                                                 </div>
                                                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                                    <input type="text" name="name" class="form-control" required/>
+                                                    <input type="text" name="discount" class="discount form-control" required/>
                                                 </div>
                                             </div>
                                         </div>
@@ -194,7 +195,7 @@
                                                     </label>
                                                 </div>
                                                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                                    <input type="text" name="name" class="form-control" required/>
+                                                    <input type="text" name="details" class="details form-control" required/>
                                                 </div>
                                             </div>
                                         </div>
@@ -230,9 +231,9 @@
                                         <th data-field="state" data-checkbox="true"></th>
                                         <th data-field="sl">SL</th>
                                         <th data-field="name" data-editable="false">Name</th>
-                                        <th data-field="name" data-editable="false">Address</th>
-                                        <th data-field="name" data-editable="false">Phone</th>
-                                        <th data-field="name" data-editable="false">Discount</th>
+                                        <th data-field="address" data-editable="false">Address</th>
+                                        <th data-field="phone" data-editable="false">Phone</th>
+                                        <th data-field="discount" data-editable="false">Discount</th>
                                         <th data-field="status" data-editable="false">Status</th>
                                         <th data-field="action">Action</th>
                                     </tr>
@@ -244,9 +245,9 @@
                                         <td></td>
                                         <td>{{ $i++ }}</td>
                                         <td>{{ $data->name }}</td>
-                                        <td>{{ $data->name }}</td>
-                                        <td>{{ $data->name }}</td>
-                                        <td>{{ $data->name }}</td>
+                                        <td>{{ $data->address }}</td>
+                                        <td>{{ $data->phone }}</td>
+                                        <td>{{ $data->discount }}</td>
                                         <td>
                                             @if($data->status == "1")
                                                 Active
@@ -262,20 +263,19 @@
                                                 <i class="fa fa-edit"></i>
                                             </button>
                                             @can('admin')
-                                            {{--  <button class="btn btn-danger deletE btn-xs"
-                                                data-id="{{ $data->id }}">
+                                            <a class="btn btn-danger deletE btn-xs" href="{{route('patient_reference.destroy',$data->id)}}">
                                                 <i class="fa fa-trash-o"></i>
-                                            </button>  --}}
+                                            </a>
                                             @endcan
                                             @if($data->status == "1")
-                                                <a href="{{route('category.status',['id'=>$data->id])}}" 
+                                                <a href="{{route('patient_reference.status',['id'=>$data->id])}}" 
                                                     class="btn btn-warning btn-xs"
                                                     onclick="return confirm('Are You Sure You Want To Change Category Status ??')">
                                                     <i class="fa fa-arrow-down" 
                                                     title="Change Category Status to Inactive ??"></i>
                                                 </a>
                                             @elseif($data->status == "0")
-                                                <a href="{{route('category.status',['id'=>$data->id])}}" 
+                                                <a href="{{route('patient_reference.status',['id'=>$data->id])}}" 
                                                     class="btn btn-success btn-xs"
                                                     onclick="return confirm('Are You Sure You Want To Change Category Status ??')">
                                                     <i class="fa fa-arrow-up" 
@@ -295,15 +295,9 @@
     </div>
 </div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
 <script>
     $(document).ready(function () {
@@ -311,11 +305,15 @@
             var id = $(this).val();
             $.ajax({
                 type: "GET",
-                url: "{{ route('category.edit') }}",
+                url: "{{ route('patient_reference.edit') }}",
                 data: {id: id},
                 success: function (data) {
                     $('.id').val(data[0]['id']);
                     $('.name').val(data[0]['name']);
+                    $('.address').val(data[0]['address']);
+                    $('.phone').val(data[0]['phone']);
+                    $('.discount').val(data[0]['discount']);
+                    $('.details').val(data[0]['details']);
                 }
             });
         });
@@ -323,11 +321,15 @@
             e.preventDefault();
             $.ajax({
                 type: "POST",
-                url: "{{ route('category.update') }}",
+                url: "{{ route('patient_reference.update') }}",
                 data: {
                     '_token'    : $('input[name=_token]').val(),
                     'id'        : $(".id").val(),
                     'name'      : $(".name").val(),
+                    'address'   : $(".address").val(),
+                    'phone'     : $(".phone").val(),
+                    'discount'  : $(".discount").val(),
+                    'details'   : $(".details").val(),
                 },
                 success: function () {
                     $('#InformationproModalhdbgcl').modal('hide');
@@ -339,21 +341,6 @@
                 }
             });
         });
-    });
-    $('.deletE').on('click', function () {
-        var id = $(this).data("id");
-        $.ajax(
-            {
-                url: "{{ route('category.destroy') }}",
-                type: 'GET',
-                data: {
-                    "id": id,
-                },
-                success: function (){
-                    console.log("Data Deleted Successfully");
-                    location.reload();
-                }
-            });
     });
 </script>
 

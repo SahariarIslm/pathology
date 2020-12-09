@@ -105,6 +105,18 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="form-group-inner">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                                                <label class="login2">Unit:</label>
+                                                            </div>
+                                                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12" style="position: relative; display: inline-block; z-index: 1;">
+                                                                <input type="text" name="unit" class="form-control" id="unit"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
 
                                             <div class="sparkline12-list col-md-6" style="width: 550px; margin-left: 10px">
@@ -154,6 +166,18 @@
                                                             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12" style="position: relative; display: inline-block; z-index: 1;">
                                                                 <input type="text" name="minimum" class="form-control" id="minimum"/>
                                                                 
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group-inner">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                                                <label class="login2">Room:</label>
+                                                            </div>
+                                                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12" style="position: relative; display: inline-block; z-index: 1;">
+                                                                <input type="text" name="room" class="form-control" id="room"/>
                                                             </div>
                                                         </div>
                                                     </div>

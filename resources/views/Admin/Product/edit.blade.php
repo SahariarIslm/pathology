@@ -45,10 +45,10 @@
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                                                <label class="login2">Barcode:</label>
+                                                                <label class="login2">Id*:</label>
                                                             </div>
                                                             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                                                <input type="number" name="barcode" class="form-control" value="{{ $data->barcode }}"/>
+                                                                <input type="number" name="code" class="form-control" value="{{ $data->code }}" required/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -57,14 +57,14 @@
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                                                <label class="login2">Category:</label>
+                                                                <label class="login2">Category*:</label>
                                                             </div>
                                                             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                                                                 <div class="form-select-list">
-                                                                    <select class="form-control custom-select-value" name="category">
-                                                                        <option>Select Category</option>
+                                                                    <select class="form-control custom-select-value" name="category_id" required>
+                                                                        <option value="">Select Category</option>
                                                                         @foreach($categories as $category)
-                                                                        <option {{$category->name == $data->category ? 'selected' : ''}} value="{{ $category->name }}">{{ $category->name }}</option>
+                                                                        <option {{$category->id == $data->category_id ? 'selected' : ''}} value="{{ $category->id }}">{{ $category->name }}</option>
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
@@ -72,129 +72,28 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                 
                                                 <div class="form-group-inner">
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                                                <label class="login2">Strength:</label>
-                                                            </div>
-                                                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                                                <input type="number" name="strength" class="form-control" value="{{ $data->strength }}" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group-inner">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                                                <label class="login2">Generic Name:</label>
-                                                            </div>
-                                                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                                                <input type="text" name="generic_name" class="form-control" value="{{ $data->generic_name }}" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group-inner">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                                                <label class="login2">Medicine Type:</label>
-                                                            </div>
-                                                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                                                <div class="form-select-list">
-                                                                    <select class="form-control custom-select-value" name="medicine_type">
-                                                                        <option>Select Medicine Type</option>
-                                                                        @foreach($medicine_types as $medicine_type)
-                                                                            <option {{$medicine_type->name == $data->medicine_type ? 'selected' : ''}} value="{{ $medicine_type->name }}">{{ $medicine_type->name }}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group-inner">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                                                <label class="login2">Details:</label>
-                                                            </div>
-                                                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                                                <textarea class="form-control" name="details" rows="1">{{ $data->details }}</textarea>
-                                                            </div>
-                                                        </div>   
-                                                    </div>
-                                                </div>
-                                                <div class="form-group-inner">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                                                <label class="login2">Seller Price:</label>
-                                                            </div>
-                                                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                                                <input type="number" name="seller_price" value="{{ $data->seller_price }}" class="form-control" />
-                                                            </div>
-                                                        </div> 
-                                                    </div>
-                                                </div>
-                                                <div class="form-group-inner">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                                                <label class="login2">Manufacturer:</label>
-                                                            </div>
-                                                            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-10" style="padding-right:0px;" >
-                                                                <div class="form-select-list">
-                                                                    <select class="form-control custom-select-value" name="manufacturer">
-                                                                        <option>Select Manufacturer</option>
-                                                                        @foreach($manufacturers as $manufacturer)
-                                                                        <option {{$manufacturer->name == $data->manufacturer ? 'selected' : ''}} value="{{ $manufacturer->name }}">{{ $manufacturer->name }}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="padding-left:0px;">
-                                                                <div class="form-select-list">
-                                                                    <button type="button" class="btn btn-info col-lg-12 Primary" style="float:right; display: inline" data-toggle="modal" data-target="#PrimaryModalalert"><i class="fa fa-plus" style="font-size: 20px" aria-hidden="true"></i>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>  
-                                            </div>
-
-                                            <div class="sparkline12-list col-md-6" style="width: 550px; margin-left: 10px">
-                                                <div class="form-group-inner">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                                                <label class="login2">Medicine Name:</label>
+                                                                <label class="login2">Name*:</label>
                                                             </div>
                                                             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12" style="position: relative; display: inline-block; z-index: 1;">
-                                                                <input type="text" name="name" class="form-control" id="search" value="{{ $data->name }}"/>
+                                                                <input type="text" value="{{ $data->name }}" name="name" class="form-control" id="search" required/>
                                                                 <span id="search1" style="position: absolute;display: none;background-color: #f9f9f9;min-width: 390px;padding: 12px 16px;"></span>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> 
                                                 <div class="form-group-inner">
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                                                <label class="login2">Medicine Shelf:</label>
+                                                                <label class="login2">Maximum Value:</label>
                                                             </div>
-                                                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                                                <div class="form-select-list">
-                                                                    <select class="form-control custom-select-value" name="medicine_shelf">
-                                                                            <option>Select Medicine Shelf</option>
-                                                                        @foreach($medicine_shelves as $medicine_shelf)
-                                                                            <option {{$medicine_shelf->name == $data->medicine_shelf ? 'selected' : ''}} value="{{ $medicine_shelf->name }}">{{ $medicine_shelf->name }}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
+                                                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12" style="position: relative; display: inline-block; z-index: 1;">
+                                                                <input type="text" name="maximum" value="{{ $data->maximum }}" class="form-control" id="maximum"/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -205,15 +104,35 @@
                                                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                                                 <label class="login2">Unit:</label>
                                                             </div>
+                                                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12" style="position: relative; display: inline-block; z-index: 1;">
+                                                                <input type="text" name="unit" value="{{ $data->unit }}" class="form-control" id="unit"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="sparkline12-list col-md-6" style="width: 550px; margin-left: 10px">
+                                                <div class="form-group-inner">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                                                <label class="login2">Price*:</label>
+                                                            </div>
                                                             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                                                <div class="form-select-list">
-                                                                    <select class="form-control custom-select-value" name="medicine_unit">
-                                                                        <option>Select Medicine Unit</option>
-                                                                        @foreach($medicine_units as $medicine_unit)
-                                                                            <option {{$medicine_unit->name == $data->medicine_unit ? 'selected' : ''}} value="{{ $medicine_unit->name }}">{{ $medicine_unit->name }}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
+                                                                <input type="number" value="{{ $data->price }}" name="price" class="form-control" required />
+                                                            </div>
+                                                        </div> 
+                                                    </div>
+                                                </div> 
+                                                <div class="form-group-inner">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                                                <label class="login2">Discount:</label>
+                                                            </div>
+                                                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                                                <input type="number" value="{{ $data->discount }}" name="discount" class="form-control" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -222,10 +141,10 @@
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                                                <label class="login2">Minimum Stock:</label>
+                                                                <label class="login2">MRP*:</label>
                                                             </div>
                                                             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                                                <input type="number" name="min_stock" value="{{ $data->min_stock }}" class="form-control" />
+                                                                <input type="number" value="{{ $data->mrp }}" name="mrp" class="form-control" required/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -234,22 +153,11 @@
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                                                <label class="login2">Vat:</label>
+                                                                <label class="login2">Minimum Value:</label>
                                                             </div>
-                                                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                                                <input type="number" name="vat" value="{{ $data->vat }}" class="form-control" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group-inner">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                                                <label class="login2">Tax:</label>
-                                                            </div>
-                                                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                                                <input type="number" value="{{ $data->tax }}" name="tax" class="form-control" />
+                                                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12" style="position: relative; display: inline-block; z-index: 1;">
+                                                                <input type="text" name="minimum" value="{{ $data->minimum }}" class="form-control" id="minimum"/>
+                                                                
                                                             </div>
                                                         </div>
                                                     </div>
@@ -258,14 +166,15 @@
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                                                <label class="login2">Manufacturer Price:</label>
+                                                                <label class="login2">Room:</label>
                                                             </div>
-                                                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                                                <input type="number" value="{{ $data->manufacturer_price }}" name="manufacturer_price" class="form-control" />
+                                                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12" style="position: relative; display: inline-block; z-index: 1;">
+                                                                <input type="text" name="room" value="{{ $data->room }}" class="form-control" id="room"/>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
+
                                                 <div class="sparkline13-hd">
                                                     <div class="main-sparkline13-hd">
                                                         <button type="submit" name="Submit" class="btn btn-info col-sm-3 Primary" style="margin-left: 5px; float: right;">Update Product

@@ -21,6 +21,8 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('category_id')->nullable();
             $table->string('minimum')->nullable();
             $table->string('maximum')->nullable();
+            $table->string('unit')->nullable();
+            $table->string('room')->nullable();
             $table->decimal('discount',20,2)->nullable();
             $table->decimal('price',20,2)->nullable();
             $table->decimal('mrp',20,2)->nullable();

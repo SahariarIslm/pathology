@@ -120,6 +120,24 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="form-group-inner">
+                                            <div class="row">
+                                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                                    <label class="login2 pull-right pull-right-pro">
+                                                       Reference <span class="table-project-n">*</span>
+                                                    </label>
+                                                </div>
+                                                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                                    <select class="form-control custom-select-value" name="reference_id" required>
+                                                        <option value="">Select Reference</option>
+                                                        @foreach($references as $reference)
+                                                            <option value="{{ $reference->id }}">{{ $reference->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
                                         
                                         <div class="form-group-inner">
                                             <div class="row">
@@ -165,7 +183,7 @@
                                         <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
                                     </div>
                                 </div>
-                                <form action="{{ route('customer.store') }}" method="POST">
+                                <form id="updatE" action="{{ route('customer.update') }}" method="POST">
                                     @csrf
                                     <div class="modal-close-area modal-close-df">
                                         <a class="close" data-dismiss="modal" href="#">
@@ -180,7 +198,7 @@
                                                     </label>
                                                 </div>
                                                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                                    <input type="text" name="name" class="form-control" required/>
+                                                    <input type="text" name="p_id" class="p_id form-control" required/>
                                                 </div>
                                             </div>
                                         </div>
@@ -192,19 +210,21 @@
                                                     </label>
                                                 </div>
                                                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                                    <input type="text" name="name" class="form-control" required/>
+                                                    <input type="text" name="name" class="name form-control" required/>
+                                                    <input name="id" class="id" type="hidden"/>
                                                 </div>
+                                                
                                             </div>
                                         </div>
                                         <div class="form-group-inner">
                                             <div class="row">
                                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                                     <label class="login2 pull-right pull-right-pro">
-                                                        Address <span class="table-project-n">*</span>
+                                                        Address <span class="table-project-n"></span>
                                                     </label>
                                                 </div>
                                                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                                    <input type="text" name="licence" class="form-control" required/>
+                                                    <input type="text" name="address" class="address form-control" required/>
                                                 </div>
                                             </div>
                                         </div>
@@ -216,7 +236,7 @@
                                                     </label>
                                                 </div>
                                                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                                    <input type="text" name="model_no" class="form-control"/>
+                                                    <input type="number" name="age" class="age form-control"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -229,7 +249,7 @@
                                                     </label>
                                                 </div>
                                                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                                    <select class="form-control custom-select-value" name="vehicle_type_id" required>
+                                                    <select class="gender form-control custom-select-value" name="gender" required>
                                                         <option value="">Select Gender</option>
                                                         <option value="Male">Male</option>
                                                         <option value="Female">Female</option>
@@ -238,16 +258,32 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
                                         <div class="form-group-inner">
                                             <div class="row">
                                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                                     <label class="login2 pull-right pull-right-pro">
-                                                        Mobile <span class="table-project-n">*</span>
+                                                       Reference <span class="table-project-n">*</span>
                                                     </label>
                                                 </div>
                                                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                                    <input type="text" name="mobile" class="form-control" required/>
+                                                    <select class="reference_id form-control custom-select-value" name="reference_id" required>
+                                                        <option value="">Select Reference</option>
+                                                        @foreach($references as $reference)
+                                                            <option value="{{ $reference->id }}">{{ $reference->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group-inner">
+                                            <div class="row">
+                                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                                    <label class="login2 pull-right pull-right-pro">
+                                                        Mobile *<span class="table-project-n"></span>
+                                                    </label>
+                                                </div>
+                                                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                                    <input type="text" name="mobile" class="mobile form-control" required/>
                                                 </div>
                                             </div>
                                         </div>
@@ -259,7 +295,7 @@
                                                     </label>
                                                 </div>
                                                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                                    <input type="text" name="mobile" class="form-control" required/>
+                                                    <input type="text" name="district" class="district form-control" />
                                                 </div>
                                             </div>
                                         </div>
@@ -298,8 +334,9 @@
                                         <th data-field="address" data-editable="false">Address</th>
                                         <th data-field="age" data-editable="false">Age</th>
                                         <th data-field="gender" data-editable="false">Gender</th>
+                                        <th data-field="reference_id" data-editable="false">Reference</th>
                                         <th data-field="mobile" data-editable="false">Mobile</th>
-                                        <th data-field="address" data-editable="false">District</th>
+                                        <th data-field="district" data-editable="false">District</th>
                                         <th data-field="action">Action</th>
                                     </tr>
                                 </thead>
@@ -313,6 +350,7 @@
                                         <td>{{ @$data->address }}</td>
                                         <td>{{ @$data->age}}</td>
                                         <td>{{ @$data->gender }}</td>
+                                        <td>{{ @$data->reference_id }}</td>
                                         <td>{{ @$data->mobile }}</td>
                                         <td>{{ @$data->district }}</td>
                                         <td class="datatable-ct w-25" style="width:25%;">
@@ -366,14 +404,15 @@
                 data: {id: id},
                 success: function (data) {
                     $('.id').val(data[0]['id']);
+                    $('.p_id').val(data[0]['p_id']);
                     $('.name').val(data[0]['name']);
-                    $('.licence').val(data[0]['licence']);
-                    $('.model_no').val(data[0]['model_no']);
-                    $('.vehicle_type_id').val(data[0]['vehicle_type_id']);
-                    $('.parking_group_id').val(data[0]['parking_group_id']);
-                    $('.mobile').val(data[0]['mobile']);
-                    $('.color').val(data[0]['color']);
                     $('.address').val(data[0]['address']);
+                    $('.age').val(data[0]['age']);
+                    $('.gender').val(data[0]['gender']);
+                    $('.reference_id').val(data[0]['reference_id']);
+                    $('.mobile').val(data[0]['mobile']);
+                    $('.district').val(data[0]['district']);
+                    
                 }
             });
         });
@@ -385,13 +424,14 @@
                 data: {
                     '_token'         : $('input[name=_token]').val(),
                     'id'             : $(".id").val(),
+                    'p_id'           : $(".p_id").val(),
                     'name'           : $(".name").val(),
-                    'licence'        : $(".licence").val(),
-                    'model_no'       : $(".model_no").val(),
-                    'vehicle_type_id': $(".vehicle_type_id").val(),
-                    'mobile'         : $(".mobile").val(),
-                    'color'          : $(".color").val(),
                     'address'        : $(".address").val(),
+                    'age'            : $(".age").val(),
+                    'gender'         : $(".gender").val(),
+                    'reference_id'   : $(".reference_id").val(),
+                    'mobile'         : $(".mobile").val(),
+                    'district'       : $(".district").val(),
                 },
                 success: function () {
                     $('#InformationproModalhdbgcl').modal('hide');

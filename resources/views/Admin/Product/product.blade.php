@@ -1,6 +1,6 @@
 @extends('Master.main')
 @section('title')
-    Services
+    Testes
 @endsection
 @section('content')
 
@@ -12,7 +12,7 @@
                     <div class="sparkline13-hd">
                         <div class="main-sparkline13-hd">
                             <h1 class="col-lg-4 p-0"  style="padding:0px;">
-                                Service<span class="table-project-n"></span> List
+                                Tests<span class="table-project-n"></span> List
                             </h1>
                             <div class="container col-lg-3">
                                 @if(session('success'))
@@ -32,8 +32,8 @@
                                 </div>      
                                 @endif
                             </div>
-                            <a class="btn btn-info col-lg-2 Primary" style="float:right;" href="{{ route('product.create') }}" role="button">Add Service</a>
-                            <a class="btn btn-primary col-lg-2 Primary" style="float:right; margin-left: 5px;" href="{{ route('product.importView') }}" role="button">Service Import</a>
+                            <a class="btn btn-info col-lg-2 Primary" style="float:right;" href="{{ route('product.create') }}" role="button">Add Test</a>
+                            <a class="btn btn-primary col-lg-2 Primary" style="float:right; margin-left: 5px;" href="{{ route('product.importView') }}" role="button">Test Import</a>
                         </div>
                     </div>
                     <div class="clearfix"></div>
@@ -61,8 +61,10 @@
                                         <th data-field="name" data-editable="false">Name</th>
                                         <th data-field="barcode" data-editable="false">ID</th>
                                         <th data-field="category" data-editable="false">Category</th>
+                                        <th data-field="unit" data-editable="false">Unit</th>
                                         <th data-field="price" data-editable="false">Price</th>
                                         <th data-field="manufacturer_price" data-editable="false">MRP</th>
+                                        <th data-field="room" data-editable="false">Room</th>
                                         <th data-field="status" data-editable="false">status</th>
                                         <th data-field="action">Action</th>
                                     </tr>
@@ -73,9 +75,11 @@
                                         <td>{{ $key+1 }}</td>
                                         <td>{{ $data->name }}</td>
                                         <td>{{ $data->code }}</td>
-                                        <td>{{ $data->category_id }}</td>
+                                        <td>{{ $data->category->name }}</td>
+                                        <td>{{ $data->unit }}</td>
                                         <td>{{ $data->price }}</td>
                                         <td>{{ $data->mrp }}</td>
+                                        <td>{{ $data->room }}</td>
                                         <td>@if($data->status == 1)
                                                 Active
                                             @else

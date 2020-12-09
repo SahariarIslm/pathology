@@ -6,7 +6,8 @@ use App\Admin\Payment;
 use Illuminate\Http\Request;
 use App\Admin\Purchase;
 use App\Admin\PurchaseItem;
-use App\Admin\Supplier;
+use App\Admin\Customer;
+use App\Admin\PatientReference;
 use Illuminate\Support\Facades\Auth;
 use App\Admin\Product;
 use Illuminate\Support\Facades\Session;
@@ -22,39 +23,36 @@ class PurchaseController extends Controller
     
     public function index(Request $request)
     {
-        // $request->session()->flush();
         if ($last = Purchase::all()->last()){  
             $sl = $last->id; 
         } else { 
             $sl = 0; 
         }
-        $suppliers = Supplier::orderBy('id', 'DESC')
+        $reference = PatientReference::orderBy('id','DESC')
                 ->where('shop', Auth::user()->id)
                 ->where('status', 1)
                 ->get();
-        $product = Product::orderBy('products.id', 'DESC')
-                ->where('products.shop', Auth::user()->id)
-                ->where('products.status', 1)
+        $patient = Customer::orderBy('id', 'DESC')
+                ->where('shop', Auth::user()->id)
+                ->where('status', 1)
                 ->get();
-        return view('Admin.Purchase.purchase', compact('suppliers','sl','product'));
+        return view('Admin.Purchase.purchase', compact('sl','patient','reference'));
     }
 
-    // public function subCat(Request $request)
-    // {
-         
-    //     $manufacturer = $request->manufacturer;
-         
-    //     $medicines = Product::where('manufacturer',$manufacturer)
-    //                         ->get();
-    //     return response()->json([
-    //         'subcategories' => $subcategories
-    //     ]);
-    // }
+    public function clientinfo(){
+        $clientInfo = Customer::where('status',1)
+                                ->where('id',request()->patient)
+                                ->where('shop', Auth::user()->id)
+                                 ->first();
+        return response()->json([
+                'clientInfo'=> $clientInfo
+            ]);
+    }
 
-    public function getMedicine(){
+    public function getServices(){
         $medicines = Product::where('status',1)
-                                ->where('manufacturer',request()->manufacturer)
-                                 ->get();
+                        ->where('manufacturer',request()->manufacturer)
+                        ->get();
         $medicines_html = (string)view('Admin.components.medicines_html', 
                             [
                                 'medicines' => $medicines,
@@ -62,7 +60,6 @@ class PurchaseController extends Controller
                         );
         return response()->json([
             'medicines_html'=> $medicines_html
-
         ]);
     }
 

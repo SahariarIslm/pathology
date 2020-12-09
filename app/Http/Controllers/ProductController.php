@@ -59,6 +59,8 @@ class ProductController extends Controller
             'name'        => $request->name,
             'category_id' => $request->category_id,
             'minimum'     => $request->minimum,
+            'unit'        => $request->unit,
+            'room'        => $request->room,
             'maximum'     => $request->maximum,
             'discount'    => $request->discount,
             'price'       => $request->price,
@@ -78,19 +80,7 @@ class ProductController extends Controller
                 ->where('shop', Auth::user()->id)
                 ->where('status', 1)
                 ->get();
-        $manufacturers = Supplier::orderBy('name', 'ASC')
-                ->where('shop', Auth::user()->id)
-                ->get();
-        $medicine_types = MedicineType::orderBy('name', 'ASC')
-                ->where('shop', Auth::user()->id)
-                ->get();
-        $medicine_shelves = MedicineShelf::orderBy('name', 'ASC')
-                ->where('shop', Auth::user()->id)
-                ->get();
-        $medicine_units = MedicineUnit::orderBy('name', 'ASC')
-                ->where('shop', Auth::user()->id)
-                ->get();
-        return view('Admin.Product.edit', compact('data','categories','manufacturers','medicine_types','medicine_shelves','medicine_units'));
+        return view('Admin.Product.edit', compact('data','categories'));
 
     }
 
@@ -100,24 +90,19 @@ class ProductController extends Controller
         $data = Product::where('id',$id)->first();
 
         $data->update([
-            'user_id' => $user_id,
-            'barcode' => $request->barcode,
-            'name' => $request->name,
-            'category' => $request->category,
-            'medicine_shelf' => $request->medicine_shelf,
-            'strength' => $request->strength,
-            'medicine_unit' => $request->medicine_unit,
-            'generic_name' => $request->generic_name,
-            'min_stock' => $request->min_stock,
-            'medicine_type' => $request->medicine_type,
-            'details' => $request->details,
-            'vat' => $request->vat,
-            'tax' => $request->tax,
-            'seller_price' => $request->seller_price,
-            'manufacturer' => $request->manufacturer,
-            'manufacturer_price' => $request->manufacturer_price,
-            'status' => $status,
-            'shop' => $user_id,         
+            'user_id'     => $user_id,
+            'code'        => $request->code,
+            'name'        => $request->name,
+            'category_id' => $request->category_id,
+            'minimum'     => $request->minimum,
+            'maximum'     => $request->maximum,
+            'unit'        => $request->unit,
+            'room'        => $request->room,
+            'discount'    => $request->discount,
+            'price'       => $request->price,
+            'mrp'         => $request->mrp,
+            'status'      => $status,
+            'shop'        => $user_id,        
         ]);
         return redirect(route('product.index'))->with('success','Medicine Updated Successfully');
     }
