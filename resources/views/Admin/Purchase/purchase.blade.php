@@ -12,13 +12,14 @@
                     <div class="sparkline13-hd">
                         <div class="main-sparkline13-hd">
                             <h1 class="col-lg-4" style="padding:0px;">
-                                Pathology Bill &nbsp;
+                                Sale No.&nbsp;
                                 <?php
                                     $s = $sl + 1 ;
-                                    $p = date('Ym') . $s;
+                                    $p = date('Y') . $s;
                                     $bata = Auth::user()->id . $p;
                                 ?>
-                                <small> ( Invoice No. : <span style="color: blue;"> {{ $bata }} </span>)</small>
+                                {{--  <small> ( Invoice No. : <span style="color: blue;">INV{{ $bata }} </span>)</small>  --}}
+                                <small> ( Invoice No. : <span style="color: blue;">{{ $tata }} </span>)</small>
                             </h1>
                             @can('admin')
                             <button type="button" class="btn btn-primary col-lg-1." data-toggle="modal" 
@@ -64,7 +65,7 @@
                                 </div>
                                 @endif
                             </div>
-                            <div class="col-lg-2." style="float:right;">
+                            <div class="col-lg-2" style="float:right;">
                                 <label style="font-size: 21px;">Bill (Tk) : </label>
                                 <input type="text" class="bill" value="" readonly
                                     style="font-size: 25px; color: red; font-weight: bold; 
@@ -147,19 +148,21 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-2">
-                            <label>Patient: </label>
-                            <select type="text" data-live-search="true" id="patient" title="Select Patient ....."
-                                class="selectpicker form-control patient" data-style="btn-info">
-                                @foreach($patient as $patient)
-                                    <option value="{{ $patient->id }}">
-                                        {{ $patient->name }} 
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <form action="{{ route('sale.submit') }}" method="POST"> 
+                         <form action="{{ route('purchase.submit') }}" method="POST"> 
                             @csrf
+                            <div class="col-lg-2">
+                                <label>Patient: </label>
+                                <select type="text" data-live-search="true" name="patient_id" id="patient" title="Select Patient ....."
+                                    class="selectpicker form-control patient" data-style="btn-info">
+                                    @foreach($patient as $patient)
+                                        <option value="{{ $patient->id }}">
+                                            {{ $patient->name }} 
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <input type="hidden" name="sale_no" class="sale_no" 
+                                    value="INV{{ $bata }}"/>
+                            </div>
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label>Gender: </label>
@@ -220,7 +223,7 @@
                                     </div>
                                     <div class="col-lg-6 text-right">
                                         <input type="text" style="text-align:center;" readonly
-                                            value="{{ Cart::getTotalQuantity() }}" name="totalQty"
+                                            value="" name="totalQty"
                                             class="col-lg-6 totalQty form-control">
                                     </div>
                                 </div>
@@ -230,8 +233,8 @@
                                     </div>
                                     <div class="col-lg-6 text-right">
                                         <input type="text" style="text-align:center;" 
-                                            value="{{ Cart::getTotal() }}" readonly
-                                            class="subTotal SubTotal form-control" name="subTotal">
+                                            value="" readonly
+                                            class="subTotal form-control" name="subTotal">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -365,7 +368,7 @@
                                 '<input class="mrp text-center form-control" id="mrp" min="0" type="number" name="mrp[]" step=".0001" title="" value="" min="0" style="width: ; bor der: hidden;">'+
                             '</td>'+
                             '<td>'+
-                                '<input class="total text-center form-control" min="0" id="total" name="total[]" type="number" step=".00001" title="" value="" min="0" style="width: ; bor der: hidden;" readonly>'+
+                                '<input class="item_total_amount text-center form-control" min="0" id="total" name="total[]" type="number" step=".00001" title="" value="" min="0" style="width: ; bor der: hidden;" readonly>'+
                             '</td>'+
                             '<td>'+
                                 '<a class="btn btn-danger btn-xs ibtnDel"> <i class="fa fa-remove"></i></a>'+
@@ -388,28 +391,22 @@
                             test_id:test_id,
                         },
                     success: function(response) {
-
+                        var sub_total = 0;
                         var code  = $('#test_row_'+counter).find('.code').val('');
                         var mrp   = $('#test_row_'+counter).find('.mrp').val('');
-                        var total = $('#test_row_'+counter).find('.total').val('');
+                        var item_total_amount = $('#test_row_'+counter).find('.item_total_amount').val('');
                         var qty   = $('#test_row_'+counter).find('.qty').val('');
 
                         code.val(response.test[0].code);
                         mrp.val(response.test[0].mrp);
                         qty.val(1);
                         var totalPrice = parseFloat(qty.val()) * parseFloat(mrp.val());
-                        total.val(totalPrice);
-                        
-                        $('#test_row_'+counter).find('#qty').on("keyup",function(){
-                            var total = $('#test_row_'+counter).find('.total').val('');
-                            var totalPrice = parseFloat($('#test_row_'+counter).find('#qty').val()) * parseFloat($('#test_row_'+counter).find('#mrp').val());
-                            total.val(totalPrice);
-                        });
+                        item_total_amount.val(totalPrice);
 
-                        $('#test_row_'+counter).find('#mrp').on("keyup",function(){
-                            var total = $('#test_row_'+counter).find('.total').val('');
-                            var totalPrice = parseFloat($('#test_row_'+counter).find('#qty').val()) * parseFloat($('#test_row_'+counter).find('#mrp').val());
-                            total.val(totalPrice);
+                        $(".item_total_amount").each(function(){
+                            var item_total_amount = parseFloat($(this).val());
+                            sub_total += isNaN(item_total_amount) ? 0 : item_total_amount;
+                            $('.subTotal').val(sub_total);
                         });
 
                     },
@@ -418,18 +415,72 @@
                 });  
             });
 
+            $('#test_row_'+counter).find('#qty').on("keyup",function(){
+                var item_total_amount = $('#test_row_'+counter).find('.item_total_amount').val('');
+                var totalPrice = parseFloat($('#test_row_'+counter).find('#qty').val()) * parseFloat($('#test_row_'+counter).find('#mrp').val());
+                item_total_amount.val(totalPrice);
+            });
+
+            $('#test_row_'+counter).find('#mrp').on("keyup",function(){
+                var item_total_amount = $('#test_row_'+counter).find('.item_total_amount').val('');
+                var totalPrice = parseFloat($('#test_row_'+counter).find('#qty').val()) * parseFloat($('#test_row_'+counter).find('#mrp').val());
+                item_total_amount.val(totalPrice);
+            });
+
         });
 
-        
 
         $("table.order-list").on("click", ".ibtnDel", function (event) {
             $(this).closest("tr").remove();
             counter --;
         });
+        function doStuff() {
+            var d = $('.disc').val();
+            var s = $('.subTotal').val() ;
+
+            if ($(".discType").children(":selected").attr("id") == 't') {   
+                
+                var totalP = s - d;   
+
+            } else {
+                
+                var totald = (s * d) / 100;
+                var totalP = s - totald;
+            }
+            
+            var totalA = totalP; 
+            $(".totalamount").val(Math.round(totalA));
+            $('.bill').val(Math.round(totalA));
+        }
+        
+        $(".disc").on('keyup', doStuff);
+        $(".discType").on('change', doStuff);
+        $('.subTotal').on('keyup', doStuff());
+
+
+        function doIt() {
+            var ro = 0;
+            var pa = $('.pAmount').val();
+            var tp = $('.totalamount').val();
+            var cal = (pa - tp);
+            if (cal > 0) {
+                $('.damount').val(Math.round(ro));
+                $('.ramount').val(Math.round(cal));
+            } else {
+                var bal = (tp - pa);
+                $('.ramount').val(Math.round(ro));
+                $('.damount').val(Math.round(bal)); }
+        }
+        $(".pAmount").on('keyup', doIt);
+        $(".totalamount").on('change', doIt);
+        $(".disc").on('keyup', doIt);
+        $(".discType").on('change', doIt);
+        $('.subTotal').on('keyup', doIt);
 
     });
     </script>
-
-
+    <script>
+        
+    </script>
 
 @endsection

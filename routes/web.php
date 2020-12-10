@@ -302,11 +302,8 @@ Route::prefix('purchase')->name('purchase.')->group(function () {
     Route::get('/list', 'PurchaseController@index')->name('index');
     Route::any('/clientinfo', 'PurchaseController@clientinfo')->name('clientinfo');
     Route::any('/getTests', 'PurchaseController@getTests')->name('getTests');
-    Route::post('/add-item', 'PurchaseController@add_item')->name('item');
-    Route::post('/add-expiry', 'PurchaseController@add_expiry')->name('expiry');
-    Route::post('/add-batch', 'PurchaseController@add_batch')->name('batch');
-    Route::post('/add-qty', 'PurchaseController@add_qty')->name('qty');
-    Route::post('/add-price', 'PurchaseController@add_price')->name('price');
+
+
     Route::get('/all-clear', 'PurchaseController@clean')->name('clean');
     Route::get('/all-remove', 'PurchaseController@remove')->name('remove');
     Route::post('/item-save', 'PurchaseController@item_save')->name('submit');
