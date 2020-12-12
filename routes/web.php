@@ -302,8 +302,6 @@ Route::prefix('purchase')->name('purchase.')->group(function () {
     Route::get('/list', 'PurchaseController@index')->name('index');
     Route::any('/clientinfo', 'PurchaseController@clientinfo')->name('clientinfo');
     Route::any('/getTests', 'PurchaseController@getTests')->name('getTests');
-
-
     Route::get('/all-clear', 'PurchaseController@clean')->name('clean');
     Route::get('/all-remove', 'PurchaseController@remove')->name('remove');
     Route::post('/item-save', 'PurchaseController@item_save')->name('submit');

@@ -12,7 +12,7 @@
                     <div class="sparkline13-hd">
                         <div class="main-sparkline13-hd">
                             <h1 class="col-lg-3" style="padding:0px;">
-                                Customer Ledger <small>( Report )</small>
+                                Patient Ledger <small>( Report )</small>
                             </h1>
                             <form action="{{ route('ledger.report.customer.print') }}" method="get"
                                     style="float: right;" target="_blank">  @csrf
@@ -30,7 +30,7 @@
                                         <select name="customer" class="select picker form-control" 
                                             title="Select Customer" data-style="btn-info" 
                                             data-live-search="true" required>
-                                            <option value="">Select Customer</option>
+                                            <option value="">Select Patient</option>
                                             @foreach ($customers as $data)
                                             <option value="{{ $data->id }}">{{ $data->name }}</option>
                                             @endforeach

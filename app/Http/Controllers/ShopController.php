@@ -47,20 +47,20 @@ class ShopController extends Controller
         if ($data->status == 'Active') 
         {
             $data->status = 'Inactive';    
-            $shop = $data->shop;
-            $data = User::find($shop);
-            $data->status = 'Inactive'; 
+            $data->save();
+            // $user = User::find($data->shop);
+            // $user->status = 'Inactive'; 
         } 
         else 
         {   
             $data->status = 'Active'; 
-            $shop = $data->shop;
-            $data = User::find($shop);
-            $data->status = 'Active';
+            $data->save();
+            // $user = User::find($data->shop);
+            // $user->status = 'Active';
         }
-        $data->save();
         return redirect()->back()->with('message','Shop Status Changed Successfully');
     }
+
 
     public function reference()
     {

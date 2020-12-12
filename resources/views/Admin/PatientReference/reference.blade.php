@@ -94,7 +94,7 @@
                                             <div class="row">
                                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                                     <label class="login2 pull-right pull-right-pro">
-                                                        Discount <span class="table-project-n">*</span>
+                                                        Discount(%) <span class="table-project-n">*</span>
                                                     </label>
                                                 </div>
                                                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
@@ -179,7 +179,7 @@
                                             <div class="row">
                                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                                     <label class="login2 pull-right pull-right-pro">
-                                                        Discount <span class="table-project-n">*</span>
+                                                        Discount(%) <span class="table-project-n">*</span>
                                                     </label>
                                                 </div>
                                                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">

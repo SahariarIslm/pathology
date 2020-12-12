@@ -193,6 +193,13 @@
                             </div>
                             <div class="col-lg-2">
                                 <div class="form-group">
+                                    <label>Reference Discount :</label>
+                                    <input class="form-control r_discount" type="number" id="r_discount" name="r_discount"
+                                        value="">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
                                     <label>Date :</label>
                                     <input class="form-control date" type="date" name="date"
                                         value="<?php echo date('Y-m-d');?>">
@@ -217,16 +224,7 @@
                                 <input type="button" class="btn btn-primary text-center" id="addrow" value="Add New Medicine" />
                             </div>
                             <div class="col-lg-3">
-                                <div class="row">
-                                    <div class="col-lg-6 text-right">
-                                        <label>Total Quantity : &nbsp;</label>
-                                    </div>
-                                    <div class="col-lg-6 text-right">
-                                        <input type="text" style="text-align:center;" readonly
-                                            value="" name="totalQty"
-                                            class="col-lg-6 totalQty form-control">
-                                    </div>
-                                </div>
+                                
                                 <div class="row">
                                     <div class="col-lg-6 text-right">
                                         <label>Sub Total : &nbsp;</label>
@@ -264,6 +262,16 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-6 text-right">
+                                        <label>Ref. Amount: &nbsp;</label>
+                                    </div>
+                                    <div class="col-lg-6 text-right">
+                                        <input type="text" style="text-align:center;" readonly
+                                            value="" name="commission"
+                                            class="col-lg-6 reference form-control">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6 text-right">
                                         <label>Paid Amount : &nbsp;</label>
                                     </div>
                                     <div class="col-lg-6 text-right">
@@ -297,7 +305,7 @@
                                         onclick="return confirm('Are you sure You want to clear this Cart ??');"
                                         href="{{ route('sale.clean') }}" type="GET">Clear
                                     </a>
-                                    <a href="" 
+                                    <a href="{{ route('sale.report.saleInvoice',['id'=>$saleNo]) }}" 
                                         target="_blank" class="col-lg-6 btn btn-primary btn-sm" type="GET">
                                         <i class="fa fa-print"></i> Print
                                     </a>
@@ -337,9 +345,11 @@
                     var phone = $("#mobile").val('');
                     var reference_id = $("#reference_id").val('');
                     var gender = $("#gender").val('');
+                    var r_discount = $("#r_discount").val('');
                     phone.val(response.clientInfo.mobile);
                     reference_id.val(response.clientInfo.reference_id);
                     gender.val(response.clientInfo.gender);
+                    r_discount.val(response.clientInfo.r_discount);
                 },
                 error: function(response) {
                 }
@@ -437,6 +447,7 @@
         function doStuff() {
             var d = $('.disc').val();
             var s = $('.subTotal').val() ;
+            var r = $('.r_discount').val();
 
             if ($(".discType").children(":selected").attr("id") == 't') {   
                 
@@ -447,10 +458,18 @@
                 var totald = (s * d) / 100;
                 var totalP = s - totald;
             }
+
+            var totalb = totalP; 
+
+            if(r > 0){
+                totalr = (totalb * r) / 100;
+            }else{
+                totalr = 0;
+            }
             
-            var totalA = totalP; 
-            $(".totalamount").val(Math.round(totalA));
-            $('.bill').val(Math.round(totalA));
+            $(".reference").val(Math.round(totalr));
+            $(".totalamount").val(Math.round(totalb));
+            $('.bill').val(Math.round(totalb));
         }
         
         $(".disc").on('keyup', doStuff);
@@ -473,14 +492,13 @@
         }
         $(".pAmount").on('keyup', doIt);
         $(".totalamount").on('change', doIt);
+        $(".r_discount").on('keyup', doStuff);
         $(".disc").on('keyup', doIt);
         $(".discType").on('change', doIt);
         $('.subTotal').on('keyup', doIt);
 
     });
     </script>
-    <script>
-        
-    </script>
+
 
 @endsection

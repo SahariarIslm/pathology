@@ -157,18 +157,19 @@
                             </li>
                         </ul>
                     </li> --}}
-                    <li class="">
+                    <li>
+                        <a title="Bill" href="{{ route('purchase.index') }}">
+                            <i class="fa fa-cart-plus sub-icon-mg" aria-hidden="true"></i>
+                            <span class="mini-sub-pro">Pathology Bill</span>
+                        </a>
+                    </li>
+                    {{-- <li class="">
                         <a class="has-arrow" href="#">
                             <i class="fa big-icon fa-cart-plus icon-wrap"></i>
                             <span class="mini-click-non">Pathology Bill</span>
                         </a>
-                        <ul class="submenu-angle" aria-expanded="true">
-                            <li>
-                                <a title="Bill" href="{{ route('purchase.index') }}">
-                                    <i class="fa fa-cart-plus sub-icon-mg" aria-hidden="true"></i>
-                                    <span class="mini-sub-pro">Bill</span>
-                                </a>
-                            </li>
+                        <ul class="submenu-angle" aria-expanded="true"> --}}
+                            
                             {{-- <li>
                                 <a title="Bill Edit" href="{{ route('purchase.edit.index') }}">
                                     <i class="fa fa-cart-arrow-down sub-icon-mg" aria-hidden="true"></i>
@@ -187,7 +188,7 @@
                                     <span class="mini-sub-pro">Bill Cancel</span>
                                 </a>
                             </li> --}}
-                            @can('adminE')
+                            {{-- @can('adminE')
                             <li>
                                 <a title="Generate Barcode" href="{{ route('barcode.index') }}">
                                     <i class="fa fa-barcode sub-icon-mg" aria-hidden="true"></i>
@@ -196,7 +197,7 @@
                             </li>
                             @endcan
                         </ul>
-                    </li>
+                    </li> --}}
 
                     {{-- <li class="">
                         <a class="has-arrow" href="#">
@@ -307,9 +308,9 @@
                         </a>
                         <ul class="submenu-angle" aria-expanded="true">
                             <li class="">
-                                <a class="has-arrow" href="#">
+                                {{-- <a class="has-arrow" href="#">
                                     <span class="mini-click-non">Purchase Report</span>
-                                </a>
+                                </a> --}}
                                 <ul class="submenu-angle" aria-expanded="true">
                                     <li>
                                         <a title="Group By Date" href="{{ route('purchase.report.groupby') }}">
@@ -394,7 +395,7 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li class="">
+                                    {{-- <li class="">
                                         <a class="has-arrow" href="#">
                                             <span class="mini-click-non">Payment Report</span>
                                         </a>
@@ -405,7 +406,7 @@
                                                 </a>
                                             </li>
                                         </ul>
-                                    </li>
+                                    </li> --}}
                                     <li class="">
                                         <a class="has-arrow" href="#">
                                             <span class="mini-click-non">Ledger Report</span>
@@ -413,14 +414,14 @@
                                         <ul class="submenu-angle" aria-expanded="true">
                                             <li>
                                                 <a title="Customer Ledger" href="{{ route('ledger.report.customer') }}">
-                                                    <span class="mini-sub-pro">Customer Ledger</span>
+                                                    <span class="mini-sub-pro">Patient Ledger</span>
                                                 </a>
                                             </li>
-                                            <li>
+                                            {{-- <li>
                                                 <a title="Supplier Ledger" href="{{ route('ledger.report.supplier') }}">
                                                     <span class="mini-sub-pro">Supplier Ledger</span>
                                                 </a>
-                                            </li>
+                                            </li> --}}
                                         </ul>
                                     </li>
                                     <li>
@@ -428,11 +429,11 @@
                                             <span class="mini-sub-pro">A/C Receiveable</span>
                                         </a>
                                     </li>
-                                    <li>
+                                    {{-- <li>
                                         <a title="Supplier Due" href="{{ route('due.supplier.report') }}">
                                             <span class="mini-sub-pro">A/C Payable</span>
                                         </a>
-                                    </li>
+                                    </li> --}}
                                 </ul>
                             </li>
                             @endcan

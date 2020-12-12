@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 06, 2020 at 06:25 AM
+-- Generation Time: Dec 10, 2020 at 12:49 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `parking`
+-- Database: `pathology`
 --
 
 -- --------------------------------------------------------
@@ -41,13 +41,8 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`, `status`, `shop`, `created_at`, `updated_at`) VALUES
-(1, 'New', 0, 2, '2020-07-07 16:44:57', '2020-10-25 10:25:49'),
-(2, 'Demo', 1, 3, '2020-07-18 15:04:42', '2020-07-18 15:04:42'),
-(3, 'Paracetamol', 1, 3, '2020-10-25 04:29:18', '2020-10-25 04:29:18'),
-(4, 'crud', 1, 3, '2020-10-25 04:29:38', '2020-10-25 04:30:18'),
-(5, 'Renited', 1, 3, '2020-10-25 05:10:01', '2020-10-25 05:10:01'),
-(6, 'Laravel', 1, 3, '2020-10-25 09:12:19', '2020-10-25 09:40:20'),
-(7, 'Paracetamol', 1, 3, '2020-10-25 09:59:05', '2020-10-26 06:06:14');
+(1, 'New 1', 1, 3, '2020-12-07 09:10:41', '2020-12-07 09:10:41'),
+(4, 'New 3', 1, 3, '2020-12-07 11:40:58', '2020-12-08 05:08:17');
 
 -- --------------------------------------------------------
 
@@ -130,16 +125,14 @@ CREATE TABLE `contacts` (
 
 CREATE TABLE `customers` (
   `id` bigint(20) UNSIGNED NOT NULL,
+  `p_id` bigint(20) NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `licence` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `model_no` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `vehicle_type_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `vehicle_type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `parking_group_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `parking_group` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `age` int(11) DEFAULT NULL,
+  `gender` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `reference_id` bigint(20) DEFAULT NULL,
   `mobile` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `color` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `address` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `district` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` tinyint(4) NOT NULL DEFAULT 1,
   `shop` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -150,21 +143,9 @@ CREATE TABLE `customers` (
 -- Dumping data for table `customers`
 --
 
-INSERT INTO `customers` (`id`, `name`, `licence`, `model_no`, `vehicle_type_id`, `vehicle_type`, `parking_group_id`, `parking_group`, `mobile`, `color`, `address`, `status`, `shop`, `created_at`, `updated_at`) VALUES
-(1, 'Arman Khan', 'dhaka - cha - 1280', 'shaDowed', 4, 'Motor Bike', 3, 'Monthly', '0987654321667', 'green', 'dasfdas', 1, 3, '2020-11-16 06:10:24', '2020-11-16 06:10:24'),
-(2, 'Maria Fatema', '098fvf09', '12345431', 2, 'Private Car', 1, 'Hourly', '0987654321667', 'gnxdf', 'yuo;rru', 1, 3, '2020-11-16 10:33:33', '2020-11-16 10:33:33'),
-(3, 'Maria', 'dhaka - cha - 1281', '01982342398', 2, 'Private Car', 3, 'Monthly', '0987654321', 'gnxdf', 'qwqwvq', 1, 3, '2020-11-16 10:34:24', '2020-11-16 10:34:24'),
-(4, 'Sahariar Islam', 'sa-re-au-di', 'Dark', 2, 'Private Car', 1, 'Hourly', '0987654321667', 'Black', 'asdasd', 1, 3, '2020-11-17 11:03:16', '2020-11-17 11:03:16'),
-(6, 'Paracetamol', 'dhaka - gha - 1130', NULL, 2, 'Private Car', 1, 'Hourly', '12343131D343', NULL, NULL, 1, 3, '2020-11-18 06:56:48', '2020-11-18 06:56:48'),
-(7, 'Mariaerw', 'jqwyecgdjqywegd', NULL, 4, 'Motor Bike', 1, 'Hourly', 'werfwerwe143423', NULL, NULL, 1, 3, '2020-11-18 07:07:23', '2020-11-18 07:07:23'),
-(8, 'Maria Fatemaasdva', '098fvf09btbwrtb', NULL, 5, 'askdsad', 3, 'Monthly', '0987654321', NULL, NULL, 1, 3, '2020-11-18 07:10:22', '2020-11-18 07:10:22'),
-(9, 'ervwervergvew', 'ASF342311 sbrt', NULL, 1, 'Bus', 1, 'Hourly', 'werwergwerwer', NULL, NULL, 1, 3, '2020-11-18 07:12:17', '2020-11-18 07:12:17'),
-(10, 'ervwervergvew', 'ASF342311 sbrt', NULL, 1, 'Bus', 1, 'Hourly', 'werwergwerwer', NULL, NULL, 1, 3, '2020-11-18 07:12:23', '2020-11-18 07:12:23'),
-(11, 'ervwervergvew', 'ASF342311 sbrt', NULL, 1, 'Bus', 1, 'Hourly', 'werwergwerwer', NULL, NULL, 1, 3, '2020-11-18 07:12:55', '2020-11-18 07:12:55'),
-(12, 'ervwervergvew', 'ASF342311 sbrt', NULL, 1, 'Bus', 1, 'Hourly', 'werwergwerwer', NULL, NULL, 1, 3, '2020-11-18 07:15:14', '2020-11-18 07:15:14'),
-(13, 'BsfbSBDsdv', 'dhaka - cha - 1400swgbnadfba', NULL, 2, 'Private Car', 1, 'Hourly', 'DSBsdbSDB', NULL, NULL, 1, 3, '2020-11-18 07:15:44', '2020-11-18 07:15:44'),
-(14, 'WFDVMWEGFV', '098fvf09WEJGVWJEKHGV', NULL, 1, 'Bus', 1, 'Hourly', 'WEFVWEFVWEFV', NULL, NULL, 1, 3, '2020-11-18 07:16:15', '2020-11-18 07:16:15'),
-(15, 'asdfasdfasd', '3rfqrfqwefqwef', NULL, 2, 'Private Car', 1, 'Hourly', 'asdasdvasd', NULL, NULL, 1, 3, '2020-11-19 04:59:52', '2020-11-19 04:59:52');
+INSERT INTO `customers` (`id`, `p_id`, `name`, `address`, `age`, `gender`, `reference_id`, `mobile`, `district`, `status`, `shop`, `created_at`, `updated_at`) VALUES
+(1, 1233, 'Sahariar', 'block:B,road:3,house:17', 25, 'Male', 1, '+880162491127000', 'Dhaka', 1, 3, '2020-12-08 09:13:52', '2020-12-08 09:16:49'),
+(2, 123312413, 'Diluar', 'block:B,road:3,house:17', 12345, 'Male', 3, '+880162491', '12344', 1, 3, '2020-12-08 10:42:58', '2020-12-08 10:42:58');
 
 -- --------------------------------------------------------
 
@@ -474,8 +455,6 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (7, '2020_02_17_154055_create_categories_table', 1),
 (8, '2020_02_18_114805_create_purchases_table', 1),
 (9, '2020_02_18_115320_create_purchase_items_table', 1),
-(10, '2020_02_20_111658_create_sales_table', 1),
-(11, '2020_02_20_112511_create_sale_items_table', 1),
 (12, '2020_02_20_113900_create_stocks_table', 1),
 (13, '2020_02_23_161728_create_purchase_cancels_table', 1),
 (14, '2020_02_24_155630_create_sale_cancels_table', 1),
@@ -499,7 +478,6 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (34, '2020_10_25_152249_create_medicine_types_table', 2),
 (35, '2020_10_25_163838_create_medicine_shelves_table', 3),
 (36, '2020_10_25_173801_create_medicine_units_table', 4),
-(39, '2020_02_17_145049_create_products_table', 5),
 (42, '2020_03_22_232225_create_deliveries_table', 7),
 (44, '2020_11_03_161845_create_vehicle_categories_table', 8),
 (45, '2020_11_04_113401_create_parking_groups_table', 9),
@@ -511,9 +489,13 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (73, '2016_06_01_000003_create_oauth_refresh_tokens_table', 15),
 (74, '2016_06_01_000004_create_oauth_clients_table', 15),
 (75, '2016_06_01_000005_create_oauth_personal_access_clients_table', 15),
-(78, '2020_02_15_163516_create_customers_table', 16),
 (82, '2020_11_07_134318_create_monthly_entries_table', 17),
-(90, '2020_11_17_134136_create_checkins_table', 18);
+(90, '2020_11_17_134136_create_checkins_table', 18),
+(95, '2020_12_07_124149_create_patient_references_table', 22),
+(96, '2020_02_15_163516_create_customers_table', 23),
+(97, '2020_02_17_145049_create_products_table', 24),
+(99, '2020_02_20_111658_create_sales_table', 25),
+(101, '2020_02_20_112511_create_sale_items_table', 26);
 
 -- --------------------------------------------------------
 
@@ -810,6 +792,33 @@ CREATE TABLE `password_resets` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `patient_references`
+--
+
+CREATE TABLE `patient_references` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `discount` decimal(20,2) DEFAULT NULL,
+  `details` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT 1,
+  `shop` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `patient_references`
+--
+
+INSERT INTO `patient_references` (`id`, `name`, `address`, `phone`, `discount`, `details`, `status`, `shop`, `created_at`, `updated_at`) VALUES
+(1, 'Sahariar', 'block:B,road:3,house:17', '+8801624911270', '5.00', 'sdfghj,k.l/', 1, 3, '2020-12-07 11:36:15', '2020-12-07 11:36:15'),
+(3, 'Ishtee Khan', 'block:B,road:3,house:17', '01762036346', '5.00', 'djqwu', 1, 3, '2020-12-08 10:41:38', '2020-12-08 10:41:38');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `payments`
 --
 
@@ -848,21 +857,16 @@ INSERT INTO `payments` (`id`, `date`, `supplier`, `purchase_no`, `paid`, `due`, 
 CREATE TABLE `products` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` int(11) DEFAULT NULL,
-  `barcode` bigint(20) DEFAULT NULL,
-  `name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `category` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `medicine_shelf` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `strength` int(11) DEFAULT NULL,
-  `medicine_unit` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `generic_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `min_stock` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `medicine_type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `details` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `vat` double(8,2) DEFAULT NULL,
-  `tax` double(8,2) DEFAULT NULL,
-  `seller_price` double(8,2) DEFAULT NULL,
-  `manufacturer` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `manufacturer_price` double(8,2) DEFAULT NULL,
+  `code` bigint(20) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `category_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `minimum` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `maximum` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `unit` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `room` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `discount` decimal(20,2) DEFAULT NULL,
+  `price` decimal(20,2) DEFAULT NULL,
+  `mrp` decimal(20,2) DEFAULT NULL,
   `status` tinyint(4) NOT NULL DEFAULT 1,
   `shop` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -873,12 +877,9 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `user_id`, `barcode`, `name`, `category`, `medicine_shelf`, `strength`, `medicine_unit`, `generic_name`, `min_stock`, `medicine_type`, `details`, `vat`, `tax`, `seller_price`, `manufacturer`, `manufacturer_price`, `status`, `shop`, `created_at`, `updated_at`) VALUES
-(2, 3, 982374, 'sadhdkh', 'crud', 'Select Medicine Shelf', 234, 'ml', 'rgdaga', NULL, 'Syrup', NULL, NULL, NULL, 230.00, 'Abul Mia', 123.00, 0, 3, '2020-10-31 04:57:23', '2020-11-04 11:05:19'),
-(4, 3, 7123416, 'lkdjk894', 'crud', 'Select Medicine Shelf', 234, 'mg', 'asdsd', NULL, 'Syrup', NULL, NULL, NULL, 230.00, 'Abul Mia', 123.00, 1, 3, '2020-10-31 04:57:23', '2020-10-31 11:26:43'),
-(5, 3, 9809870000000, 'sadhdkh', 'crud', 'Select Medicine Shelf', 234, 'ml', 'rgdaga', NULL, 'Syrup', NULL, NULL, NULL, 230.00, 'Maria Fatema', 123.00, 1, 3, '2020-10-31 04:57:54', '2020-11-01 04:38:00'),
-(6, 3, 101131000000, 'skldjcs', 'crud', 'Select Medicine Shelf', 3445, 'mg', 'gasda', NULL, 'Syrup', NULL, NULL, NULL, 230.00, 'Abul Mia', 123.00, 1, 3, '2020-10-31 04:57:54', '2020-10-31 11:26:21'),
-(7, 3, 712123000000, 'lkdjk894', 'crud', 'Select Medicine Shelf', 234, 'mg', 'asdsd', NULL, 'Syrup', NULL, NULL, NULL, 230.00, 'Abul Mia', 123.00, 1, 3, '2020-10-31 04:57:54', '2020-10-31 06:20:08');
+INSERT INTO `products` (`id`, `user_id`, `code`, `name`, `category_id`, `minimum`, `maximum`, `unit`, `room`, `discount`, `price`, `mrp`, `status`, `shop`, `created_at`, `updated_at`) VALUES
+(2, 3, 8912, 'Blood Test', 4, '123', '200', 'bt', '123', '5.00', '1500.00', '123.00', 1, 3, '2020-12-09 06:11:34', '2020-12-09 07:25:45'),
+(3, 3, 2092, 'CT scan', 1, '123', 'asd', 'fdvafv', 'savsadfv', '10.00', '1500.00', '1900.00', 1, 3, '2020-12-09 06:29:42', '2020-12-09 07:25:34');
 
 -- --------------------------------------------------------
 
@@ -1056,24 +1057,28 @@ CREATE TABLE `reference_payments` (
 CREATE TABLE `sales` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `sale_no` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `customer` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `delivery` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `patient_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `date` date NOT NULL,
   `totalQty` int(11) DEFAULT NULL,
   `subTotal` double(10,2) DEFAULT NULL,
   `discount` double(10,2) DEFAULT NULL,
   `d_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `dCharge` double(10,2) DEFAULT NULL,
   `payable` double(10,2) DEFAULT NULL,
   `paid` double(10,2) DEFAULT NULL,
   `return` double(10,2) DEFAULT NULL,
   `due` double(10,2) DEFAULT NULL,
-  `p_type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `shop` int(11) NOT NULL,
   `user` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `sales`
+--
+
+INSERT INTO `sales` (`id`, `sale_no`, `patient_id`, `date`, `totalQty`, `subTotal`, `discount`, `d_type`, `payable`, `paid`, `return`, `due`, `shop`, `user`, `created_at`, `updated_at`) VALUES
+(11, 'INV3202011', '1', '2020-12-10', NULL, 123.00, 5.00, '%', 117.00, 400.00, 283.00, 0.00, 3, 'Demo CRM', '2020-12-10 10:41:31', '2020-12-10 10:41:31');
 
 -- --------------------------------------------------------
 
@@ -1107,6 +1112,7 @@ CREATE TABLE `sale_items` (
   `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `date` date NOT NULL,
+  `room` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `qty` int(11) DEFAULT NULL,
   `price` double(8,2) DEFAULT NULL,
   `total` double(10,2) DEFAULT NULL,
@@ -1115,6 +1121,13 @@ CREATE TABLE `sale_items` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `sale_items`
+--
+
+INSERT INTO `sale_items` (`id`, `sale_no`, `name`, `code`, `date`, `room`, `qty`, `price`, `total`, `shop`, `user`, `created_at`, `updated_at`) VALUES
+(3, 'INV3202011', 'Blood Test', '8912', '2020-12-10', '123', 1, 123.00, 123.00, 3, 3, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1140,7 +1153,7 @@ CREATE TABLE `shops` (
 
 INSERT INTO `shops` (`id`, `user_id`, `business_name`, `business_type`, `reference_no`, `area`, `address`, `created_at`, `updated_at`) VALUES
 (1, 2, 'Demo Shop', 'E-commerce', NULL, 'Dhaka', 'Dhaka-1205.', '2020-07-07 16:44:18', '2020-07-07 16:44:18'),
-(2, 3, 'Sylhet City Center', 'Book Shop', NULL, 'Coxsbazar', 'nai', '2020-07-07 17:11:35', '2020-11-09 04:38:44'),
+(2, 3, 'Pathology', 'Pathology', NULL, 'Dhaka', 'Elephant Road', '2020-07-07 17:11:35', '2020-11-09 04:38:44'),
 (3, 4, 'AMAR sHOP', 'Dealership', NULL, 'Lakshmipur', 'Dhaka', '2020-11-01 07:59:21', '2020-11-01 07:59:21'),
 (4, 5, 'Shubastu Arched', 'Dealership', NULL, 'Dhaka', 'Dhaka', '2020-11-09 04:41:19', '2020-11-09 04:41:19');
 
@@ -1174,6 +1187,15 @@ CREATE TABLE `shop_packages` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `shop_packages`
+--
+
+INSERT INTO `shop_packages` (`id`, `name`, `price`, `days`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Startup', '500', '30', 1, '2020-12-10 11:04:21', '2020-12-10 11:04:21'),
+(2, 'Professional', '1000', '30', 1, '2020-12-10 11:04:40', '2020-12-10 11:04:40'),
+(3, 'Enterprise', '1500', '30', 1, '2020-12-10 11:04:52', '2020-12-10 11:04:52');
+
 -- --------------------------------------------------------
 
 --
@@ -1201,9 +1223,10 @@ CREATE TABLE `shop_payments` (
 
 INSERT INTO `shop_payments` (`id`, `date`, `package`, `price`, `days`, `type`, `number`, `comment`, `status`, `shop`, `created_at`, `updated_at`) VALUES
 (1, '2020-07-07', 'Free Demo Package', '0', '15', NULL, NULL, NULL, 1, 2, '2020-07-07 16:44:18', '2020-07-07 16:44:18'),
-(2, '2020-07-07', 'Free Demo Package', '0', '15', NULL, NULL, NULL, 1, 3, '2020-07-07 17:11:35', '2020-07-07 17:11:35'),
+(2, '2020-07-07', 'Free Demo Package', '0', '15', NULL, NULL, NULL, 0, 3, '2020-07-07 17:11:35', '2020-12-10 11:07:07'),
 (3, '2020-11-01', 'Free Demo Package', '0', '15', NULL, NULL, NULL, 1, 4, '2020-11-01 07:59:21', '2020-11-01 07:59:21'),
-(4, '2020-11-09', 'Free Demo Package', '0', '15', NULL, NULL, NULL, 1, 5, '2020-11-09 04:41:19', '2020-11-09 04:41:19');
+(4, '2020-11-09', 'Free Demo Package', '0', '15', NULL, NULL, NULL, 1, 5, '2020-11-09 04:41:19', '2020-11-09 04:41:19'),
+(5, '2020-12-10', 'Enterprise', '1500', '30', 'Bkash', '45678', NULL, 1, 3, '2020-12-10 11:07:07', '2020-12-10 11:07:07');
 
 -- --------------------------------------------------------
 
@@ -1379,8 +1402,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `mobile`, `email`, `role`, `status`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'Demo Reference', '01910000000', 'reference@gmail.com', 'Reference', 'Active', NULL, '$2y$10$1KjPrsV3lVqxyASb/.mL8OVGS11eAfbakvpYegvY7.pxAeVZbos5K', NULL, '2020-07-07 17:00:00', NULL),
-(2, 'Super Admin', '01210000000', 'demo@gmail.com', 'SuperAdmin', 'Active', NULL, '$2y$10$1KjPrsV3lVqxyASb/.mL8OVGS11eAfbakvpYegvY7.pxAeVZbos5K', 'O1SgxN6anHsxspIaJ806pC7BxCVSJLqxb6OEzbNILX8Ey5AkhxbGgp9Hd5wq', '2020-07-07 16:44:18', '2020-07-07 16:44:18'),
-(3, 'Demo CRM', '01410000000', 'new@gmail.com', 'Admin', 'Active', NULL, '$2y$10$1KjPrsV3lVqxyASb/.mL8OVGS11eAfbakvpYegvY7.pxAeVZbos5K', 'BUvDvqaJYjIgS74vNABcRG1BHmxlQfpWgixbtqFM9PT10LSR4tQnkhSlBGci', '2020-07-07 17:11:35', '2020-07-07 17:11:35'),
+(2, 'Super Admin', '01210000000', 'demo@gmail.com', 'SuperAdmin', 'Active', NULL, '$2y$10$1KjPrsV3lVqxyASb/.mL8OVGS11eAfbakvpYegvY7.pxAeVZbos5K', 'R4Vpq28oFGdYC7SMmmOXAkVzKxCwen4wGL4Gv1osMfgQsUAQt1XxjvGE12jh', '2020-07-07 16:44:18', '2020-07-07 16:44:18'),
+(3, 'Demo CRM', '01410000000', 'new@gmail.com', 'Admin', 'Active', NULL, '$2y$10$1KjPrsV3lVqxyASb/.mL8OVGS11eAfbakvpYegvY7.pxAeVZbos5K', 'Th45Y6qmMo6IDYzCf4jVEKogQYCkf3bj20TLlUxJ7SFTZaZAQe3DBPGVauT1', '2020-07-07 17:11:35', '2020-07-07 17:11:35'),
 (4, 'mONIR', '01909642730', 'monir@gmail.com', 'Admin', 'Active', NULL, '$2y$10$1KjPrsV3lVqxyASb/.mL8OVGS11eAfbakvpYegvY7.pxAeVZbos5K', NULL, '2020-11-01 07:59:21', '2020-11-01 07:59:21'),
 (5, 'Arman', '01912345678', 'dhruv.islam7584@gmail.com', 'Admin', 'Active', NULL, '$2y$10$1KjPrsV3lVqxyASb/.mL8OVGS11eAfbakvpYegvY7.pxAeVZbos5K', 'VoLgqoVltEFKCWpK31anbYvylpOBP71O4IKxEQEvGZhRyLXVI3sFrsRa0qvc', '2020-11-09 04:41:19', '2020-11-09 04:41:19');
 
@@ -1445,9 +1468,7 @@ ALTER TABLE `contacts`
 -- Indexes for table `customers`
 --
 ALTER TABLE `customers`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `customers_vehicle_type_id_foreign` (`vehicle_type_id`),
-  ADD KEY `customers_parking_group_id_foreign` (`parking_group_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `deliveries`
@@ -1586,6 +1607,12 @@ ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
 
 --
+-- Indexes for table `patient_references`
+--
+ALTER TABLE `patient_references`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `payments`
 --
 ALTER TABLE `payments`
@@ -1595,7 +1622,8 @@ ALTER TABLE `payments`
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `products_category_id_foreign` (`category_id`);
 
 --
 -- Indexes for table `purchases`
@@ -1733,7 +1761,7 @@ ALTER TABLE `vehicle_categories`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `checkins`
@@ -1757,7 +1785,7 @@ ALTER TABLE `contacts`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `deliveries`
@@ -1823,7 +1851,7 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
 -- AUTO_INCREMENT for table `monthly_checkins`
@@ -1862,6 +1890,12 @@ ALTER TABLE `parking_prices`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
+-- AUTO_INCREMENT for table `patient_references`
+--
+ALTER TABLE `patient_references`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
@@ -1871,7 +1905,7 @@ ALTER TABLE `payments`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `purchases`
@@ -1907,7 +1941,7 @@ ALTER TABLE `reference_payments`
 -- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `sale_cancels`
@@ -1919,7 +1953,7 @@ ALTER TABLE `sale_cancels`
 -- AUTO_INCREMENT for table `sale_items`
 --
 ALTER TABLE `sale_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `shops`
@@ -1937,13 +1971,13 @@ ALTER TABLE `shop_employees`
 -- AUTO_INCREMENT for table `shop_packages`
 --
 ALTER TABLE `shop_packages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `shop_payments`
 --
 ALTER TABLE `shop_payments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `stocks`
@@ -2012,13 +2046,6 @@ ALTER TABLE `checkins`
   ADD CONSTRAINT `checkins_vehicle_category_id_foreign` FOREIGN KEY (`vehicle_category_id`) REFERENCES `vehicle_categories` (`id`);
 
 --
--- Constraints for table `customers`
---
-ALTER TABLE `customers`
-  ADD CONSTRAINT `customers_parking_group_id_foreign` FOREIGN KEY (`parking_group_id`) REFERENCES `parking_groups` (`id`),
-  ADD CONSTRAINT `customers_vehicle_type_id_foreign` FOREIGN KEY (`vehicle_type_id`) REFERENCES `vehicle_categories` (`id`);
-
---
 -- Constraints for table `hourly_entries`
 --
 ALTER TABLE `hourly_entries`
@@ -2038,6 +2065,12 @@ ALTER TABLE `parking_prices`
   ADD CONSTRAINT `parking_prices_delivery_id_foreign` FOREIGN KEY (`delivery_id`) REFERENCES `deliveries` (`id`),
   ADD CONSTRAINT `parking_prices_parking_group_id_foreign` FOREIGN KEY (`parking_group_id`) REFERENCES `parking_groups` (`id`),
   ADD CONSTRAINT `parking_prices_vehicle_category_id_foreign` FOREIGN KEY (`vehicle_category_id`) REFERENCES `vehicle_categories` (`id`);
+
+--
+-- Constraints for table `products`
+--
+ALTER TABLE `products`
+  ADD CONSTRAINT `products_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

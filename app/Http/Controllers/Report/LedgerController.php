@@ -41,7 +41,7 @@ class LedgerController extends Controller
 
         $debit = DB::table('sales')
                     ->whereBetween('date', [$fromdate, $todate])
-                    ->where('customer', $customer)
+                    ->where('patient_id', $customer)
                     ->where('shop', Auth::user()->id)
                     ->get();
         $tDebit = $debit->sum('payable');
@@ -86,7 +86,7 @@ class LedgerController extends Controller
 
         $debit = DB::table('sales')
                     ->whereBetween('date', [$fromdate, $todate])
-                    ->where('customer', $request->customer)
+                    ->where('patient_id', $request->customer)
                     ->where('shop', Auth::user()->id)
                     ->get();
         $tDebit = $debit->sum('payable');

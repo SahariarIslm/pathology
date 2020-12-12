@@ -18,8 +18,8 @@
         <h6>Mobile No. : {{ Auth::user()->mobile }}</h6>
         <h6>{{ $data->address }}, {{ $data->area }}</h6>
         @endforeach
-        <h4><u>Customer Ledger Report</u></h4>
-        <h6>Customer : {{ $customer }} &nbsp;&nbsp; Mobile : {{ $mobile }}</h6>
+        <h4><u>Patient Ledger Report</u></h4>
+        <h6>Patient : {{ $customer }} &nbsp;&nbsp; Mobile : {{ $mobile }}</h6>
         <h6>From : {{ $fromdate }} &nbsp;-&nbsp; To : {{ $todate }}</h6>
     </div>
     <br>

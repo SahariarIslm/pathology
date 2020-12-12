@@ -24,8 +24,7 @@ class PurchaseController extends Controller
         $this->middleware('inactiveShop');
     }
     
-    public function index(Request $request)
-    {
+    public function index(Request $request){
         // $request->session()->flush();
         $date = new DateTime("now");
         if ($last = Sale::all()->last()){  
@@ -56,10 +55,11 @@ class PurchaseController extends Controller
     }
 
     public function clientinfo(){
-        $clientInfo = Customer::where('status',1)
-                                ->where('id',request()->patient)
-                                ->where('shop', Auth::user()->id)
-                                 ->first();
+        
+        $clientInfo = Customer::where('customers.id',request()->patient)->where('customers.shop', Auth::user()->id)
+                    ->leftJoin('patient_references','customers.reference_id','=','patient_references.id')
+                    ->select('customers.*','patient_references.discount as r_discount')
+                    ->first();
         return response()->json([
                 'clientInfo'=> $clientInfo
             ]);
@@ -74,19 +74,17 @@ class PurchaseController extends Controller
         ]);
     }
 
-    public function details(Request $request)
-    {
+    public function details(Request $request){
         $data = Supplier::where('id', $request->id)->pluck('mobile');
         return response()->json($data);
     }
 
-    public function item_save(Request $request)
-    {
+    public function item_save(Request $request){
         
-
         $data               = new Sale();
         $data->sale_no      = $request->sale_no;
         $data->patient_id   = $request->patient_id;
+        $data->reference_id   = $request->reference_id;
         $data->date         = $request->date;
         $data->totalQty     = $request->totalQty;
         $data->subTotal     = $request->subTotal;
@@ -94,6 +92,7 @@ class PurchaseController extends Controller
         $data->d_type       = $request->d_type;
         $data->payable      = $request->payable;
         $data->paid         = $request->paid;
+        $data->commission   = $request->commission;
         $data->return       = $request->return;
         $data->due          = $request->due;
         $data->shop         = Auth::user()->id;
@@ -106,13 +105,15 @@ class PurchaseController extends Controller
             $postData = [];
             for ($i=0; $i <$countProduct ; $i++) { 
                 $name = Product::find($request->test_id[$i])->name;
+                $room = Product::find($request->test_id[$i])->room;
                 $postData[] = [
                 'name'          => $name,
                 'code'          => $request->code[$i],
-                'sale_no'   => $request->sale_no,
+                'sale_no'       => $request->sale_no,
                 'date'          => $request->date,
+                'room'          => $room,
                 'qty'           => $request->qty[$i],
-                'price'          => $request->mrp[$i],
+                'price'         => $request->mrp[$i],
                 'total'         => $request->total[$i],
                 'shop'          => Auth::user()->id,
                 'user'          => Auth::user()->id,

@@ -36,7 +36,7 @@ class SaleController extends Controller
         $data = Sale::orderBy('sales.id', 'DESC')
                     ->whereBetween('sales.date', [$fromdate, $todate])
                     ->where('sales.shop', Auth::user()->id)
-                    ->leftJoin('customers','sales.customer','customers.id')
+                    ->leftJoin('customers','sales.patient_id','customers.id')
                     ->select('sales.*','customers.name as custom')
                     ->get();
         $Qty = $data->sum('totalQty');
@@ -52,7 +52,7 @@ class SaleController extends Controller
         $data = Sale::orderBy('sales.id', 'DESC')
                     ->whereBetween('sales.date', [$fromdate, $todate])
                     ->where('sales.shop', Auth::user()->id)
-                    ->leftJoin('customers','sales.customer','customers.id')
+                    ->leftJoin('customers','sales.patient_id','customers.id')
                     ->select('sales.*','customers.name as custom')
                     ->get();
         $Qty = $data->sum('totalQty');
@@ -66,7 +66,7 @@ class SaleController extends Controller
         $company    = Shop::where('user_id', Auth::user()->id)->get();
         $data       = Sale::where('sale_no', $request->id)
                             ->join('users','sales.shop','users.id')
-                            ->leftJoin('customers','sales.customer','customers.id')
+                            ->leftJoin('customers','sales.patient_id','customers.id')
                             ->select('sales.*','customers.name','customers.mobile','customers.address')
                             ->get();
         $details    = SaleItem::where('sale_no', $request->id)->get();
@@ -78,7 +78,7 @@ class SaleController extends Controller
         $company    = Shop::where('user_id', Auth::user()->id)->get();
         $data       = Sale::where('sale_no', $request->id)
                             ->join('users','sales.shop','users.id')
-                            ->leftJoin('customers','sales.customer','customers.id')
+                            ->leftJoin('customers','sales.patient_id','customers.id')
                             ->select('sales.*','customers.name','customers.mobile','customers.address')
                             ->get();
         $details    = SaleItem::where('sale_no', $request->id)->get();
@@ -100,7 +100,7 @@ class SaleController extends Controller
     {
         $data = Sale::where('sales.date', $request->id)
                 ->where('sales.shop', Auth::user()->id)
-                ->leftJoin('customers','sales.customer','customers.id')
+                ->leftJoin('customers','sales.patient_id','customers.id')
                 ->select('sales.*','customers.name as custom')
                 ->get();
         $Date = $data->min('date');
@@ -113,7 +113,7 @@ class SaleController extends Controller
         $company = Shop::where('user_id', Auth::user()->id)->get();
         $data = Sale::where('sales.date', $request->id)
                 ->where('sales.shop', Auth::user()->id)
-                ->leftJoin('customers','sales.customer','customers.id')
+                ->leftJoin('customers','sales.patient_id','customers.id')
                 ->select('sales.*','customers.name as custom')
                 ->get();
         $Qty = $data->sum('totalQty');
@@ -126,7 +126,7 @@ class SaleController extends Controller
         $company = Shop::where('user_id', Auth::user()->id)->get();
         $data = Sale::where('sale_no', $request->id)
                     ->join('users','sales.shop','users.id')
-                    ->leftJoin('customers','sales.customer','customers.id')
+                    ->leftJoin('customers','sales.patient_id','customers.id')
                     ->select('sales.*','customers.name as custom','customers.mobile as mobil')
                     ->get();
         $details = SaleItem::where('sale_no', $request->id)->get();
@@ -152,7 +152,7 @@ class SaleController extends Controller
                     ->whereBetween('sales.date', [$fromdate, $todate])
                     ->where('sales.shop', Auth::user()->id)
                     ->where('sales.delivery', $deliver)
-                    ->leftJoin('customers','sales.customer','customers.id')
+                    ->leftJoin('customers','sales.patient_id','customers.id')
                     ->leftJoin('deliveries','sales.delivery','deliveries.id')
                     ->select('sales.*','customers.name as custom','deliveries.name as delivery')
                     ->get();
@@ -166,7 +166,7 @@ class SaleController extends Controller
     public function sale_no(Request $request)
     {
         $data = Sale::where('sale_no', $request->id)
-                    ->join('customers','sales.customer','customers.id')
+                    ->join('customers','sales.patient_id','customers.id')
                     ->select('sales.*','customers.name as custom')
                     ->get();
         return response()->json($data);
@@ -184,7 +184,7 @@ class SaleController extends Controller
                     ->whereBetween('sales.date', [$fromdate, $todate])
                     ->where('sales.shop', Auth::user()->id)
                     ->where('sales.delivery', $deliver)
-                    ->leftJoin('customers','sales.customer','customers.id')
+                    ->leftJoin('customers','sales.patient_id','customers.id')
                     ->leftJoin('deliveries','sales.delivery','deliveries.id')
                     ->select('sales.*','customers.name as custom','deliveries.name as delivery')
                     ->get();

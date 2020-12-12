@@ -29,14 +29,14 @@
         }
 
         .tbl2 {
-            width: 60px;
+            width: 100px;
             float: left;
             text-align: center;
             font-family: monospace;
         }
 
         .tbl3 {
-            width: 40px;
+            width: 80px;
             float: left;
             text-align: center;
             font-family: monospace;
@@ -50,16 +50,16 @@
     </style>
 </head>
 
-<body onload="window.print();window.history.back()" style="width: 350px; min-height: 350px;">
+<body onload="window.print();window.history.back()" style="width: 550px; min-height: 750px;">
         @foreach ($company as $com)
-        <div class="text" style="width:300px; text-align:center;">
+        <div class="text" style="width:500px; text-align:center;">
             <b style="font-size:23px;">{{ $com->business_name }}</b>
             <br>{{ $com->address }}, {{ $com->area }}
             <br>Mobile No.: {{ Auth::user()->mobile }}
         </div>
         @endforeach
         @foreach($data as $data)
-        <div class="text" style="width:300px; border-top: 1px solid;">
+        <div class="text" style="width:500px; border-top: 1px solid;">
             <div class="center-align">
                     Invoice: <b>{{ $data->sale_no }}</b>
                     <br>
@@ -68,7 +68,7 @@
                     Sold By: {{ $data->user }}
             </div>
         </div>
-        <div class="text" style="width:300px; border-top: 1px solid; height:20px; ">
+        <div class="text" style="width:500px; border-top: 1px solid; height:20px; ">
             <div style="float: left; text-align: left;">
                     Name: 
                     @if($data->custom == null)
@@ -80,12 +80,14 @@
             </div>
         </div>
         <br>
-        <div class="text" style="width:300px; border-top: 1px solid;">
+        <div class="text" style="width:500px; border-top: 1px solid;">
             <div class="tbl">SL.</div>
             <div class="tbl1">Description</div>
+            <div class="tbl3">Room</div>
             <div class="tbl3">Qty.</div>
             <div class="tbl2">Price</div>
             <div class="tbl2">Total</div>
+            <br>
             <br>
             <?php $i = 1; ?>
             @foreach($details as $item)
@@ -93,6 +95,7 @@
                 <div class="tbl1" style="font-size: 12px;">{{ $item->name }}
                     ({{$item->code}})
                 </div>
+                <div class="tbl3">{{ $item->room }}</div>
                 <div class="tbl3">{{ $item->qty }}</div>
                 <div class="tbl2">{{ $item->price }}</div>
                 <div class="tbl2">{{ $item->total }}</div>
@@ -108,9 +111,6 @@
                     <br>
                     <div class="text" style="float: right;">Discount 
                         : {{ $data->discount }} {{ $data->d_type }} </div>
-                    <br>
-                    <div class="text" style="float: right;">Delivery Charge
-                        : {{ $data->dCharge  }} Tk</div>
                     <br>
                     <div class="text" style="float: right;">Total Payable
                         : {{ $data->payable  }} Tk</div>

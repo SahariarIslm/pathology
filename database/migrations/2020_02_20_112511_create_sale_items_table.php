@@ -19,6 +19,7 @@ class CreateSaleItemsTable extends Migration
             $table->string('name')->nullable();
             $table->string('code')->nullable();
             $table->date('date');
+            $table->string('room');
             $table->integer('qty')->nullable();
             $table->double('price', 8,2)->nullable();
             $table->double('total', 10,2)->nullable();
